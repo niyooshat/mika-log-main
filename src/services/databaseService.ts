@@ -68,10 +68,18 @@ export const fetchLibraryItems = async (): Promise<LibraryItem[]> => {
 
   try {
     console.log("[DB] Fetching library items...");
-    const query = supabase
+    // Only fetch items for the current user if available
+    const userResult = await supabase.auth.getUser();
+    const userId = userResult?.data?.user?.id || null;
+
+    let query: any = supabase
       .from("library_items")
       .select("*")
       .order("date_added", { ascending: false });
+
+    if (userId) {
+      query = query.eq("user_id", userId);
+    }
 
     const { data, error } = await withTimeout(
       query as unknown as Promise<any>,
@@ -102,6 +110,11 @@ export const upsertLibraryItem = async (
 
   try {
     const dbItem = libraryItemToDbItem(item);
+    // Attach user_id when possible
+    const userResult = await supabase.auth.getUser();
+    const userId = userResult?.data?.user?.id || null;
+    if (userId) dbItem.user_id = userId;
+
     const query = supabase
       .from("library_items")
       .upsert(dbItem, { onConflict: "id" });
@@ -127,10 +140,13 @@ export const deleteLibraryItem = async (itemId: string): Promise<boolean> => {
   }
 
   try {
-    const { error } = await supabase
-      .from("library_items")
-      .delete()
-      .eq("id", itemId);
+    const userResult = await supabase.auth.getUser();
+    const userId = userResult?.data?.user?.id || null;
+
+    let qb: any = supabase.from("library_items").delete().eq("id", itemId);
+    if (userId) qb = qb.eq("user_id", userId);
+
+    const { error } = await qb;
 
     if (error) throw error;
     return true;
@@ -154,10 +170,16 @@ export const fetchUserReviews = async (): Promise<UserReview[]> => {
 
   try {
     console.log("[DB] Fetching user reviews...");
-    const query = supabase
+    // Only fetch reviews for the current user when possible
+    const userResult = await supabase.auth.getUser();
+    const userId = userResult?.data?.user?.id || null;
+
+    let query: any = supabase
       .from("user_reviews")
       .select("*")
       .order("created_at", { ascending: false });
+
+    if (userId) query = query.eq("user_id", userId);
 
     const { data, error } = await withTimeout(
       query as unknown as Promise<any>,
@@ -188,6 +210,11 @@ export const upsertUserReview = async (
 
   try {
     const dbReview = userReviewToDbReview(review);
+    // Attach user_id when possible
+    const userResult = await supabase.auth.getUser();
+    const userId = userResult?.data?.user?.id || null;
+    if (userId) dbReview.user_id = userId;
+
     const { error } = await supabase
       .from("user_reviews")
       .upsert(dbReview, { onConflict: "id" });
