@@ -30,7 +30,14 @@ Create a `.env.local` file in project root with:
 
 EXPO_PUBLIC_TMDB_API_KEY=your_tmdb_api_key_here
 
-(Used by API config for movie/TV requests.)
+# Optional - for cloud storage and sync (see SUPABASE_SETUP.md)
+EXPO_PUBLIC_SUPABASE_URL=your_supabase_project_url
+EXPO_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+Notes:
+- TMDb API key: Used for movie/TV requests (required for search features)
+- Supabase: Optional backend for cloud storage and multi-device sync
+- See SUPABASE_SETUP.md for complete Supabase integration guide
 
 ==================================================
 3) JavaScript/TypeScript project dependencies

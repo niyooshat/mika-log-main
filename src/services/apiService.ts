@@ -388,11 +388,21 @@ export const getTrendingBooks = async (
   limit: number = 10,
 ): Promise<LibraryItem[]> => {
   try {
-    // Fetch popular books using a trending query
-    const response = await fetch(
-      `${OPEN_LIBRARY_SEARCH}?subject=fiction&sort=newest&limit=${limit}`,
-      { signal: createTimeoutSignal(10000) },
-    );
+    // Fetch popular books using a simple search query (more reliable across endpoints)
+    const url = `${OPEN_LIBRARY_SEARCH}?q=fiction&limit=${limit}`;
+    console.log("[API] getTrendingBooks fetching", url);
+    const response = await fetch(url, { signal: createTimeoutSignal(10000) });
+
+    if (!response.ok) {
+      const text = await response.text().catch(() => "<no-body>");
+      console.error(
+        "[API] getTrendingBooks bad response",
+        response.status,
+        text,
+      );
+      return [];
+    }
+
     const data = await response.json();
 
     // Map books - fetch descriptions asynchronously but don't block on them
