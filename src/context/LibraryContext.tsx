@@ -1,7 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useAuth } from './AuthContext';
 import { API_CONFIG } from "../config/apiConfig";
-import { isSupabaseConfigured } from "../config/supabaseClient";
+import { isSupabaseConfigured, getSupabase } from "../config/supabaseClient";
 import {
     getTrendingBooks,
     getTrendingMovies,
@@ -67,6 +68,7 @@ export const LibraryProvider: React.FC<{ children: React.ReactNode }> = ({
   };
   const [userProfile, setUserProfile] = useState<UserProfile>(defaultProfile);
   const [isLoading, setIsLoading] = useState(true);
+  const { user } = useAuth();
 
   // Load from AsyncStorage and Supabase on mount
   useEffect(() => {
@@ -107,12 +109,36 @@ export const LibraryProvider: React.FC<{ children: React.ReactNode }> = ({
               setUserReviews(dbReviews);
             }
 
-            // Also load profile from AsyncStorage (not synced to DB yet)
-            const storedProfile =
-              await AsyncStorage.getItem(PROFILE_STORAGE_KEY);
-            if (storedProfile) {
-              const parsedProfile = JSON.parse(storedProfile);
-              setUserProfile({ ...defaultProfile, ...parsedProfile });
+            // Also load profile from Supabase user metadata if available
+            try {
+              const supabase = getSupabase();
+              if (supabase) {
+                const { data: userData } = await supabase.auth.getUser();
+                const remoteProfile = userData?.user?.user_metadata || null;
+                if (remoteProfile && Object.keys(remoteProfile).length > 0) {
+                  setUserProfile({ ...defaultProfile, ...remoteProfile });
+                  // persist locally
+                  await AsyncStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(remoteProfile));
+                } else {
+                  const storedProfile = await AsyncStorage.getItem(PROFILE_STORAGE_KEY);
+                  if (storedProfile) {
+                    const parsedProfile = JSON.parse(storedProfile);
+                    setUserProfile({ ...defaultProfile, ...parsedProfile });
+                  }
+                }
+              } else {
+                const storedProfile = await AsyncStorage.getItem(PROFILE_STORAGE_KEY);
+                if (storedProfile) {
+                  const parsedProfile = JSON.parse(storedProfile);
+                  setUserProfile({ ...defaultProfile, ...parsedProfile });
+                }
+              }
+            } catch (e) {
+              const storedProfile = await AsyncStorage.getItem(PROFILE_STORAGE_KEY);
+              if (storedProfile) {
+                const parsedProfile = JSON.parse(storedProfile);
+                setUserProfile({ ...defaultProfile, ...parsedProfile });
+              }
             }
 
             // If we got data from Supabase, we're done
@@ -170,6 +196,98 @@ export const LibraryProvider: React.FC<{ children: React.ReactNode }> = ({
 
     loadData();
   }, []);
+
+  // When a user signs in, merge any locally stored items/reviews into Supabase
+  useEffect(() => {
+    const syncLocalToSupabase = async () => {
+      if (!isSupabaseConfigured() || !user) return;
+      try {
+        console.log('[LibraryContext] Syncing local data to Supabase for user', user.id);
+
+        const storedLibrary = await AsyncStorage.getItem(LIBRARY_STORAGE_KEY);
+        const storedReviews = await AsyncStorage.getItem(REVIEWS_STORAGE_KEY);
+
+        const localItems: LibraryItem[] = storedLibrary ? JSON.parse(storedLibrary) : [];
+        const localReviewsArr: UserReview[] = storedReviews ? JSON.parse(storedReviews) : [];
+
+        // Fetch remote items and reviews
+        const remoteItems = await fetchLibraryItems();
+        const remoteItemIds = new Set(remoteItems.map((i) => i.id));
+
+        for (const item of localItems) {
+          if (!remoteItemIds.has(item.id)) {
+            try {
+              await upsertLibraryItem(item);
+            } catch (e) {
+              console.warn('[LibraryContext] Failed to upsert local item', item.id, e);
+            }
+          }
+        }
+
+        const remoteReviews = await fetchUserReviews();
+        const remoteReviewIds = new Set(remoteReviews.map((r) => r.id));
+
+        for (const rev of localReviewsArr) {
+          if (!remoteReviewIds.has(rev.id)) {
+            try {
+              await upsertUserReview(rev);
+            } catch (e) {
+              console.warn('[LibraryContext] Failed to upsert local review', rev.id, e);
+            }
+          }
+        }
+
+        // Refresh state from Supabase and persist locally
+        const mergedItems = await fetchLibraryItems();
+        setLibraryItems(mergedItems);
+        await AsyncStorage.setItem(LIBRARY_STORAGE_KEY, JSON.stringify(mergedItems));
+
+        const mergedReviews = await fetchUserReviews();
+        setUserReviews(mergedReviews);
+        await AsyncStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(mergedReviews));
+
+        // Sync user profile (favorites etc.) to Supabase user_metadata
+        try {
+          const supabase = getSupabase();
+          if (supabase) {
+            const { data: userData } = await supabase.auth.getUser();
+            const remoteProfile = userData?.user?.user_metadata || null;
+            const storedProfileRaw = await AsyncStorage.getItem(PROFILE_STORAGE_KEY);
+            const localProfile = storedProfileRaw ? JSON.parse(storedProfileRaw) : null;
+
+            // If local profile exists and remote is empty or different, push local -> Supabase
+            if (localProfile && (!remoteProfile || JSON.stringify(remoteProfile) !== JSON.stringify(localProfile))) {
+              try {
+                await supabase.auth.updateUser({ data: localProfile });
+                console.log('[LibraryContext] Pushed local profile to Supabase for user', user.id);
+              } catch (e) {
+                console.warn('[LibraryContext] Failed to push profile to Supabase', e);
+              }
+            }
+
+            // If remote profile exists and local is empty/different, persist remote locally
+            if (remoteProfile && (!localProfile || JSON.stringify(remoteProfile) !== JSON.stringify(localProfile))) {
+              try {
+                await AsyncStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(remoteProfile));
+                setUserProfile((prev) => ({ ...prev, ...remoteProfile }));
+                console.log('[LibraryContext] Pulled remote profile from Supabase for user', user.id);
+              } catch (e) {
+                console.warn('[LibraryContext] Failed to persist remote profile locally', e);
+              }
+            }
+          }
+        } catch (e) {
+          console.warn('[LibraryContext] Profile sync step failed', e);
+        }
+
+        console.log('[LibraryContext] Sync complete');
+      } catch (error) {
+        console.warn('[LibraryContext] Error syncing local to Supabase:', error);
+      }
+    };
+
+    syncLocalToSupabase();
+  }, [user]);
 
   // Load initial data from APIs
   const loadInitialData = async () => {
@@ -441,8 +559,21 @@ export const LibraryProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const updateUserProfile = (profile: UserProfile) => {
+  const updateUserProfile = async (profile: UserProfile) => {
     setUserProfile(profile);
+
+    // Persist immediately to Supabase user metadata when possible
+    if (isSupabaseConfigured() && user) {
+      try {
+        const supabase = getSupabase();
+        if (supabase) {
+          await supabase.auth.updateUser({ data: profile });
+          console.log('[LibraryContext] Updated Supabase user_metadata for user', user.id);
+        }
+      } catch (e) {
+        console.warn('[LibraryContext] Failed to update Supabase user metadata', e);
+      }
+    }
   };
 
   const getFavoritesByType = (
