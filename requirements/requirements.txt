@@ -1,0 +1,112 @@
+Mika Log — Full Requirements (Web + iOS)
+Project type: Expo React Native (SDK 54)
+OS target: macOS
+
+==================================================
+1) System prerequisites (install first)
+==================================================
+- Homebrew (latest)
+- Node.js >= 20 (LTS recommended)
+- npm >= 10
+- Watchman (for reliable Metro file watching)
+- Xcode (latest stable)
+- Xcode Command Line Tools
+- iOS Simulator runtime (installed via Xcode)
+- CocoaPods >= 1.15 (needed if using prebuild/dev build)
+
+Suggested install commands (macOS):
+- /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+- brew install node watchman cocoapods
+- xcode-select --install
+
+Notes:
+- Use `npx expo ...` (no global Expo CLI required).
+- If you will run native builds (`expo run:ios`), keep Xcode + CocoaPods updated.
+
+==================================================
+2) Environment variables
+==================================================
+Create a `.env.local` file in project root with:
+
+EXPO_PUBLIC_TMDB_API_KEY=your_tmdb_api_key_here
+
+(Used by API config for movie/TV requests.)
+
+==================================================
+3) JavaScript/TypeScript project dependencies
+(install from package-lock with `npm ci`)
+==================================================
+Dependencies:
+- @expo/vector-icons ^15.0.3
+- @react-native-async-storage/async-storage ^2.2.0
+- @react-navigation/bottom-tabs ^7.4.0
+- @react-navigation/elements ^2.6.3
+- @react-navigation/native ^7.1.28
+- @react-navigation/native-stack ^7.12.0
+- dotenv-expand ^12.0.3
+- expo ~54.0.2
+- expo-constants ~18.0.13
+- expo-font ~14.0.11
+- expo-haptics ~15.0.8
+- expo-image ~3.0.11
+- expo-image-picker ~17.0.10
+- expo-linking ~8.0.11
+- expo-router ~6.0.23
+- expo-splash-screen ~31.0.13
+- expo-status-bar ~3.0.9
+- expo-symbols ~1.0.8
+- expo-system-ui ~6.0.9
+- expo-web-browser ~15.0.10
+- react 19.1.0
+- react-dom 19.1.0
+- react-native 0.81.5
+- react-native-gesture-handler ~2.28.0
+- react-native-reanimated ~4.1.1
+- react-native-safe-area-context ~5.6.0
+- react-native-screens ~4.16.0
+- react-native-web ~0.21.0
+- react-native-worklets 0.5.1
+
+Dev dependencies:
+- @types/react ~19.1.0
+- eslint ^9.25.0
+- eslint-config-expo ~10.0.0
+- typescript ~5.9.2
+
+==================================================
+4) Project setup commands
+==================================================
+From project root:
+- npm ci
+
+Optional validation:
+- npm run lint
+
+==================================================
+5) Run targets
+==================================================
+Web:
+- npm run web
+  (or: npx expo start --web)
+
+iOS (Simulator):
+- npm run ios
+  (or: npx expo start --ios)
+
+If using native dev build flow instead of Expo Go:
+- npx expo prebuild --platform ios
+- npx pod-install
+- npx expo run:ios
+
+==================================================
+6) Troubleshooting baseline
+==================================================
+If Metro cache issues appear:
+- npx expo start -c
+
+If iOS native dependency sync is needed:
+- npx pod-install
+
+If Node modules are corrupted:
+- rm -rf node_modules package-lock.json
+- npm install
