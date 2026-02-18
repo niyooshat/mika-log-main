@@ -1,6 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Session, User } from "@supabase/supabase-js";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getSupabase, isSupabaseConfigured } from "../config/supabaseClient";
 
 interface AuthContextType {
@@ -50,7 +50,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     // Listen for auth changes
     const { data: listener } = supabase.auth.onAuthStateChange(
       (event, newSession) => {
-        console.log('[Auth] auth state change:', event, {
+        console.log("[Auth] auth state change:", event, {
           userId: newSession?.user?.id ?? null,
           hasSession: !!newSession,
         });
@@ -91,34 +91,39 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const supabase = getSupabase();
     if (!supabase) return;
     try {
-      console.log('[Auth] Performing server signOut');
+      console.log("[Auth] Performing server signOut");
       await supabase.auth.signOut();
-      console.log('[Auth] Server signOut completed');
+      console.log("[Auth] Server signOut completed");
     } catch (e) {
-      console.warn('[Auth] signOut failed', e);
+      console.warn("[Auth] signOut failed", e);
     }
   };
 
   // Local-only sign out: clears local persisted auth state without calling Supabase server
   const signOutLocal = async () => {
     try {
-      console.log('[Auth] Performing local-only signOut (clearing local storage)');
+      console.log(
+        "[Auth] Performing local-only signOut (clearing local storage)",
+      );
       const keys = await AsyncStorage.getAllKeys();
-      const authKeys = keys.filter((k) =>
-        typeof k === 'string' && (
-          k.includes('supabase') ||
-          k.includes('sb:') ||
-          k.includes('sb-') ||
-          k.includes('supabase.auth')
-        ),
+      const authKeys = keys.filter(
+        (k) =>
+          typeof k === "string" &&
+          (k.includes("supabase") ||
+            k.includes("sb:") ||
+            k.includes("sb-") ||
+            k.includes("supabase.auth")),
       );
       if (authKeys.length > 0) await AsyncStorage.multiRemove(authKeys);
       // Also clear in-memory session
       setSession(null);
       setUser(null);
-      console.log('[Auth] Local-only signOut complete, removed keys:', authKeys);
+      console.log(
+        "[Auth] Local-only signOut complete, removed keys:",
+        authKeys,
+      );
     } catch (e) {
-      console.warn('[Auth] Local-only signOut failed', e);
+      console.warn("[Auth] Local-only signOut failed", e);
     }
   };
 
