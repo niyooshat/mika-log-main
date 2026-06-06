@@ -38,19 +38,8 @@ export default function LoginScreen() {
   const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async () => {
-    if (!email.trim() || !password) {
-      setError("Please enter your email and password.");
-      return;
-    }
-    setLoading(true);
-    setError(null);
-    const { error: err } = await signIn(email.trim(), password);
-    if (err) {
-      setError(err);
-      setLoading(false);
-    } else {
-      router.replace("/");
-    }
+    // Auth bypass: go straight in
+    router.replace("/");
   };
 
   return (

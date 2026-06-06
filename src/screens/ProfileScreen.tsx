@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
     Alert,
     Dimensions,
@@ -1088,7 +1088,6 @@ const styles = StyleSheet.create({
     color: "#6b5040",
     lineHeight: 22,
   },
-});
   iconButtonsContainer: {
     flexDirection: "row",
     gap: 12,

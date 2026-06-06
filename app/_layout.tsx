@@ -27,10 +27,8 @@ function AuthGate() {
 
     const inAuthGroup = segments[0] === "login" || segments[0] === "register";
 
-    if (!user && !inAuthGroup) {
-      // Not signed in — redirect to login
-      router.replace("/login");
-    } else if (user && inAuthGroup) {
+    // Auth bypass: skip login redirect for now
+    if (user && inAuthGroup) {
       // Already signed in — redirect to home
       router.replace("/");
     }
