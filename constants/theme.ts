@@ -1,29 +1,52 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * Cottagecore soft-girl palette for mika
+ * Warm creams, dusty roses, sage greens, and antique lavender.
  */
 
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+// ── Brand ────────────────────────────────────────────────────────────────────
+export const CC = {
+  // Backgrounds
+  cream:        '#fdf6ee',   // warm parchment – main bg
+  parchment:    '#f5ead8',   // slightly deeper warm bg for cards
+  roseWhite:    '#fdf0f4',   // blush white for card surfaces
+  // Accent pinks
+  dustyRose:    '#d4849b',   // primary brand pink
+  blush:        '#e8a0b0',   // lighter rose
+  roseMist:     '#f2c5ce',   // very pale rose
+  // Greens
+  sage:         '#9aaa8a',   // sage green
+  fern:         '#7a9270',   // deeper sage
+  mossLight:    '#dde8d5',   // very pale sage for badges
+  // Accent purple
+  lavender:     '#c8b4d4',   // antique lavender
+  lavenderMist: '#ede5f5',   // very pale lavender
+  // Neutrals
+  bark:         '#6b5040',   // warm brown – primary text
+  mushroom:     '#9e8a78',   // muted brown – secondary text
+  linen:        '#e8ddd0',   // divider / border
+  // Utility
+  error:        '#b05060',
+  errorBg:      '#fceef0',
+};
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+    text:           CC.bark,
+    background:     CC.cream,
+    tint:           CC.dustyRose,
+    icon:           CC.mushroom,
+    tabIconDefault: CC.mushroom,
+    tabIconSelected: CC.dustyRose,
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    text:           '#f5ead8',
+    background:     '#2e2319',
+    tint:           CC.blush,
+    icon:           '#b09a84',
+    tabIconDefault: '#b09a84',
+    tabIconSelected: CC.blush,
   },
 };
 

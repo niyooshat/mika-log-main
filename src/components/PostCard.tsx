@@ -4,6 +4,17 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Post } from '../types';
 import { ReviewInteractions } from './ReviewInteractions';
 
+// â”€â”€ Cottagecore palette â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+const CREAM     = '#fdf6ee';
+const PARCHMENT = '#fffaf5';
+const ROSE      = '#d4849b';
+const BLUSH     = '#e8a0b0';
+const ROSE_MIST = '#f9e8ed';
+const BARK      = '#6b5040';
+const MUSHROOM  = '#9e8a78';
+const LINEN     = '#e8ddd0';
+const SAGE      = '#9aaa8a';
+
 interface PostCardProps {
   post: Post;
   onCoverPress?: (itemId?: string) => void;
@@ -14,71 +25,58 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onCoverPress }) => {
     const stars = [];
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
-
     for (let i = 0; i < fullStars; i++) {
-      stars.push(
-        <MaterialCommunityIcons key={`full-${i}`} name="star" size={16} color="#e98dca" />
-      );
+      stars.push(<MaterialCommunityIcons key={`full-${i}`} name="star" size={15} color={ROSE} />);
     }
-
     if (hasHalfStar) {
-      stars.push(
-        <MaterialCommunityIcons key="half" name="star-half-full" size={16} color="#e98dca" />
-      );
+      stars.push(<MaterialCommunityIcons key="half" name="star-half-full" size={15} color={ROSE} />);
     }
-
     const emptyStars = 5 - Math.ceil(rating);
     for (let i = 0; i < emptyStars; i++) {
-      stars.push(
-        <MaterialCommunityIcons
-          key={`empty-${i}`}
-          name="star-outline"
-          size={16}
-          color="#999"
-        />
-      );
+      stars.push(<MaterialCommunityIcons key={`empty-${i}`} name="star-outline" size={15} color={LINEN} />);
     }
-
     return stars;
   };
 
+  const typeLabel = post.type === 'book' ? 'ðŸ“–' : post.type === 'film' ? 'ðŸŽ¬' : 'ðŸ“º';
+
   return (
     <View style={styles.container}>
-      {/* Header with profile */}
+      {/* Header */}
       <View style={styles.header}>
         <Image source={{ uri: post.author.avatar }} style={styles.avatar} />
         <View style={styles.authorInfo}>
           <Text style={styles.authorName}>{post.author.name}</Text>
-          <Text style={styles.postType}>{post.type.charAt(0).toUpperCase() + post.type.slice(1)}</Text>
+          <Text style={styles.postType}>{typeLabel} {post.type.charAt(0).toUpperCase() + post.type.slice(1)}</Text>
         </View>
       </View>
 
-      {/* Content section with review and cover image */}
+      {/* Content */}
       <View style={styles.content}>
         <View style={styles.reviewSection}>
           <Text style={styles.title}>{post.title}</Text>
-          <Text style={styles.review} numberOfLines={4}>
-            {post.review}
-          </Text>
+          <Text style={styles.review} numberOfLines={4}>{post.review}</Text>
         </View>
-
-        <TouchableOpacity
-          onPress={() => onCoverPress?.(post.itemId)}
-          activeOpacity={0.7}>
+        <TouchableOpacity onPress={() => onCoverPress?.(post.itemId)} activeOpacity={0.8}>
           <Image source={{ uri: post.coverImage }} style={styles.coverImage} />
         </TouchableOpacity>
       </View>
 
-      {/* Tags section */}
-      <View style={styles.tagsContainer}>
-        {post.tags.map((tag, index) => (
-          <View key={index} style={styles.tag}>
-            <Text style={styles.tagText}>{tag}</Text>
-          </View>
-        ))}
-      </View>
+      {/* Tags */}
+      {post.tags.length > 0 && (
+        <View style={styles.tagsContainer}>
+          {post.tags.map((tag, index) => (
+            <View key={index} style={styles.tag}>
+              <Text style={styles.tagText}>{tag}</Text>
+            </View>
+          ))}
+        </View>
+      )}
 
-      {/* Rating section */}
+      {/* Divider */}
+      <View style={styles.divider} />
+
+      {/* Rating */}
       <View style={styles.ratingContainer}>
         <View style={styles.stars}>{renderStars(post.rating)}</View>
         <Text style={styles.ratingText}>{post.rating.toFixed(1)}</Text>
@@ -97,15 +95,17 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onCoverPress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ffffff',
-    borderRadius: 12,
-    marginHorizontal: 16,
+    backgroundColor: PARCHMENT,
+    borderRadius: 20,
+    marginHorizontal: 14,
     marginVertical: 8,
     padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    borderWidth: 1.5,
+    borderColor: LINEN,
+    shadowColor: BARK,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
     elevation: 3,
   },
   header: {
@@ -114,22 +114,22 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginRight: 12,
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    marginRight: 10,
+    borderWidth: 2,
+    borderColor: ROSE_MIST,
   },
-  authorInfo: {
-    flex: 1,
-  },
+  authorInfo: { flex: 1 },
   authorName: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#000',
+    fontSize: 13,
+    fontWeight: '700',
+    color: BARK,
   },
   postType: {
-    fontSize: 12,
-    color: '#666',
+    fontSize: 11,
+    color: MUSHROOM,
     marginTop: 2,
   },
   content: {
@@ -137,57 +137,60 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     gap: 12,
   },
-  reviewSection: {
-    flex: 1,
-  },
+  reviewSection: { flex: 1 },
   title: {
     fontSize: 15,
     fontWeight: '700',
-    color: '#000',
+    color: BARK,
     marginBottom: 6,
   },
   review: {
     fontSize: 13,
-    color: '#333',
-    lineHeight: 18,
+    color: MUSHROOM,
+    lineHeight: 19,
   },
   coverImage: {
-    width: 100,
-    aspectRatio: 150 / 220,
-    borderRadius: 8,
-    backgroundColor: '#f0f0f0',
+    width: 90,
+    aspectRatio: 2 / 3,
+    borderRadius: 12,
+    backgroundColor: LINEN,
+    borderWidth: 1,
+    borderColor: LINEN,
   },
   tagsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 6,
+    gap: 5,
     marginBottom: 10,
   },
   tag: {
-    backgroundColor: '#f0e6f0',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
+    backgroundColor: ROSE_MIST,
+    paddingHorizontal: 9,
+    paddingVertical: 3,
+    borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#e98dca',
+    borderColor: BLUSH,
   },
   tagText: {
-    fontSize: 12,
-    color: '#c2516b',
-    fontWeight: '500',
+    fontSize: 11,
+    color: ROSE,
+    fontWeight: '600',
+  },
+  divider: {
+    height: 1,
+    backgroundColor: LINEN,
+    marginVertical: 10,
   },
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 7,
+    marginBottom: 4,
   },
-  stars: {
-    flexDirection: 'row',
-    gap: 2,
-  },
+  stars: { flexDirection: 'row', gap: 2 },
   ratingText: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: '#333',
+    fontSize: 12,
+    fontWeight: '700',
+    color: BARK,
   },
 });

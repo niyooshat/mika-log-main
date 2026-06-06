@@ -132,7 +132,7 @@ export default function LibraryScreen() {
             }}
             style={styles.seeAllButton}>
             <Text style={styles.seeAllText}>See All</Text>
-            <MaterialCommunityIcons name="chevron-right" size={16} color="#e98dca" />
+            <MaterialCommunityIcons name="chevron-right" size={16} color="#d4849b" />
           </TouchableOpacity>
         </View>
 
@@ -170,16 +170,16 @@ export default function LibraryScreen() {
         <TouchableOpacity
           style={styles.controlButton}
           onPress={() => setShowSortMenu(!showSortMenu)}>
-          <MaterialCommunityIcons name="sort" size={18} color="#e98dca" />
+          <MaterialCommunityIcons name="sort" size={18} color="#d4849b" />
           <Text style={styles.controlButtonText}>Sort: {getSortLabel(sortBy)}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.controlButton, minRating > 0 && styles.controlButtonActive]}
           onPress={() => setShowRatingFilter(!showRatingFilter)}>
-          <MaterialCommunityIcons name="star" size={18} color={minRating > 0 ? '#e98dca' : '#ccc'} />
-          <Text style={[styles.controlButtonText, minRating > 0 && { color: '#e98dca' }]}>
-            {minRating > 0 ? `${minRating}+★` : 'Rating'}
+          <MaterialCommunityIcons name="star" size={18} color={minRating > 0 ? '#d4849b' : '#ccc'} />
+          <Text style={[styles.controlButtonText, minRating > 0 && { color: '#d4849b' }]}>
+            {minRating > 0 ? `${minRating}+Ã¢Ëœâ€¦` : 'Rating'}
           </Text>
         </TouchableOpacity>
       </View>
@@ -201,7 +201,7 @@ export default function LibraryScreen() {
               <MaterialCommunityIcons
                 name={sortBy === option ? 'check' : 'blank'}
                 size={18}
-                color="#e98dca"
+                color="#d4849b"
               />
               <Text style={styles.menuItemText}>{getSortLabel(option)}</Text>
             </TouchableOpacity>
@@ -226,7 +226,7 @@ export default function LibraryScreen() {
               <MaterialCommunityIcons
                 name={minRating === rating ? 'check' : 'blank'}
                 size={18}
-                color="#e98dca"
+                color="#d4849b"
               />
               <Text style={styles.menuItemText}>
                 {rating === 0 ? 'All Ratings' : `${rating}+ Stars`}
@@ -243,7 +243,7 @@ export default function LibraryScreen() {
           <RefreshControl 
             refreshing={refreshing} 
             onRefresh={handleRefresh}
-            tintColor="#e98dca"
+            tintColor="#d4849b"
             title="Pull to refresh"
           />
         }>
@@ -314,13 +314,13 @@ export default function LibraryScreen() {
 
       for (let i = 0; i < fullStars; i++) {
         stars.push(
-          <MaterialCommunityIcons key={`full-${i}`} name="star" size={16} color="#FFD700" />
+          <MaterialCommunityIcons key={`full-${i}`} name="star" size={16} color="#d4849b" />
         );
       }
 
       if (hasHalfStar) {
         stars.push(
-          <MaterialCommunityIcons key="half" name="star-half-full" size={16} color="#FFD700" />
+          <MaterialCommunityIcons key="half" name="star-half-full" size={16} color="#d4849b" />
         );
       }
 
@@ -368,11 +368,11 @@ export default function LibraryScreen() {
               setSelectedItem(null);
             }}
             style={styles.backButton}>
-            <MaterialCommunityIcons name="chevron-left" size={24} color="#e98dca" />
+            <MaterialCommunityIcons name="chevron-left" size={24} color="#d4849b" />
           </TouchableOpacity>
           <Text style={styles.itemDetailHeaderTitle}>{selectedItem.title}</Text>
           <TouchableOpacity onPress={() => removeFromLibrary(selectedItem.id)}>
-            <MaterialCommunityIcons name="trash-can-outline" size={20} color="#e98dca" />
+            <MaterialCommunityIcons name="trash-can-outline" size={20} color="#d4849b" />
           </TouchableOpacity>
         </View>
 
@@ -483,7 +483,7 @@ export default function LibraryScreen() {
                   <MaterialCommunityIcons
                     name={star <= (selectedItem.personalRating || 0) ? 'star' : 'star-outline'}
                     size={28}
-                    color={star <= (selectedItem.personalRating || 0) ? '#FFD700' : '#ddd'}
+                    color={star <= (selectedItem.personalRating || 0) ? '#d4849b' : '#e8ddd0'}
                   />
                 </TouchableOpacity>
               ))}
@@ -519,7 +519,7 @@ export default function LibraryScreen() {
                 ]
               );
             }}>
-            <MaterialCommunityIcons name="trash-can-outline" size={18} color="#e98dca" />
+            <MaterialCommunityIcons name="trash-can-outline" size={18} color="#d4849b" />
             <Text style={styles.deleteButtonText}>Remove from Library</Text>
           </TouchableOpacity>
         </ScrollView>
@@ -535,7 +535,7 @@ export default function LibraryScreen() {
         {/* Header with Back Button */}
         <View style={styles.detailHeader}>
           <TouchableOpacity onPress={() => setViewMode('main')} style={styles.backButton}>
-            <MaterialCommunityIcons name="chevron-left" size={24} color="#e98dca" />
+            <MaterialCommunityIcons name="chevron-left" size={24} color="#d4849b" />
           </TouchableOpacity>
           <Text style={styles.detailTitle}>{getSectionLabel(selectedStatus)}</Text>
           <View style={{ width: 24 }} />
@@ -598,12 +598,12 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: '#e8ddd0',
   },
   title: {
     fontSize: 28,
     fontWeight: '800',
-    color: '#000',
+    color: '#6b5040',
     letterSpacing: 0.5,
   },
   detailHeader: {
@@ -611,7 +611,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: '#e8ddd0',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -625,7 +625,7 @@ const styles = StyleSheet.create({
   detailTitle: {
     fontSize: 24,
     fontWeight: '800',
-    color: '#000',
+    color: '#6b5040',
     flex: 1,
     textAlign: 'center',
   },
@@ -633,7 +633,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: '#e8ddd0',
     paddingHorizontal: 16,
   },
   tab: {
@@ -644,15 +644,15 @@ const styles = StyleSheet.create({
     borderBottomColor: 'transparent',
   },
   activeTab: {
-    borderBottomColor: '#e98dca',
+    borderBottomColor: '#d4849b',
   },
   tabText: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#999',
+    color: '#9e8a78',
   },
   activeTabText: {
-    color: '#e98dca',
+    color: '#d4849b',
   },
   controlsContainer: {
     flexDirection: 'row',
@@ -661,7 +661,7 @@ const styles = StyleSheet.create({
     gap: 8,
     backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: '#e8ddd0',
   },
   controlButton: {
     flex: 1,
@@ -671,18 +671,18 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
-    backgroundColor: '#f9f9f9',
+    borderColor: '#e8ddd0',
+    backgroundColor: '#f5ead8',
     gap: 6,
   },
   controlButtonActive: {
-    borderColor: '#e98dca',
-    backgroundColor: '#fff5fa',
+    borderColor: '#d4849b',
+    backgroundColor: '#fdf6ee',
   },
   controlButtonText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#999',
+    color: '#9e8a78',
   },
   menuContainer: {
     marginHorizontal: 16,
@@ -691,7 +691,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: '#e8ddd0',
   },
   menuItem: {
     flexDirection: 'row',
@@ -699,16 +699,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: '#e8ddd0',
     gap: 10,
   },
   menuItemActive: {
-    backgroundColor: '#fff5fa',
+    backgroundColor: '#fdf6ee',
   },
   menuItemText: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#333',
+    color: '#6b5040',
   },
   content: {
     paddingVertical: 12,
@@ -719,13 +719,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#fff',
-    marginBottom: 8,
+    backgroundColor: '#fffaf5',
+    marginBottom: 6,
   },
   sectionTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#000',
+    color: '#6b5040',
   },
   seeAllButton: {
     flexDirection: 'row',
@@ -735,7 +735,7 @@ const styles = StyleSheet.create({
   seeAllText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#e98dca',
+    color: '#d4849b',
   },
   coversScroll: {
     paddingHorizontal: 16,
@@ -752,9 +752,9 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 8,
     overflow: 'hidden',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#e8ddd0',
     marginBottom: 4,
-    shadowColor: '#000',
+    shadowColor: '#6b5040',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3,
@@ -763,7 +763,7 @@ const styles = StyleSheet.create({
   coverPlaceholder: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#e8ddd0',
   },
   coverImage: {
     width: '100%',
@@ -773,7 +773,7 @@ const styles = StyleSheet.create({
   coverTitle: {
     fontSize: 11,
     fontWeight: '600',
-    color: '#000',
+    color: '#6b5040',
     textAlign: 'center',
     lineHeight: 14,
   },
@@ -782,7 +782,7 @@ const styles = StyleSheet.create({
   },
   itemDetailContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fdf6ee',
   },
   itemDetailHeader: {
     flexDirection: 'row',
@@ -792,7 +792,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: '#e8ddd0',
   },
   itemDetailHeaderButton: {
     width: 40,
@@ -803,7 +803,7 @@ const styles = StyleSheet.create({
   itemDetailHeaderTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#000',
+    color: '#6b5040',
     flex: 1,
     textAlign: 'center',
   },
@@ -819,23 +819,25 @@ const styles = StyleSheet.create({
     width: 150,
     aspectRatio: 150 / 220,
     borderRadius: 12,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#e8ddd0',
   },
   itemDetailInfo: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
+    backgroundColor: '#fffaf5',
+    borderRadius: 20,
+    padding: 18,
+    marginBottom: 14,
+    borderWidth: 1.5,
+    borderColor: '#e8ddd0',
   },
   itemDetailTitle: {
     fontSize: 20,
     fontWeight: '800',
-    color: '#000',
+    color: '#6b5040',
     marginBottom: 4,
   },
   itemDetailAuthor: {
     fontSize: 14,
-    color: '#666',
+    color: '#9e8a78',
     marginBottom: 12,
   },
   itemDetailTagsContainer: {
@@ -845,16 +847,16 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   itemDetailTag: {
-    backgroundColor: '#f0e6f0',
+    backgroundColor: '#f9e8ed',
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#e98dca',
+    borderColor: '#d4849b',
   },
   itemDetailTagText: {
     fontSize: 12,
-    color: '#c2516b',
+    color: '#b05060',
     fontWeight: '500',
   },
   itemDetailRatingContainer: {
@@ -870,30 +872,32 @@ const styles = StyleSheet.create({
   itemDetailRatingText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#000',
+    color: '#6b5040',
   },
   itemSynopsisTitle: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#000',
+    color: '#6b5040',
     marginBottom: 8,
   },
   itemSynopsis: {
     fontSize: 13,
     lineHeight: 20,
-    color: '#555',
+    color: '#9e8a78',
     marginBottom: 24,
   },
   itemDetailMyActivitySection: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
+    backgroundColor: '#ede5f5',
+    borderRadius: 20,
+    padding: 18,
+    marginBottom: 14,
+    borderWidth: 1.5,
+    borderColor: '#c8b4d4',
   },
   itemDetailMyActivityTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#000',
+    color: '#6b5040',
     marginBottom: 12,
   },
   itemDetailMyActivityContent: {
@@ -901,7 +905,7 @@ const styles = StyleSheet.create({
   },
   itemDetailMyActivityText: {
     fontSize: 13,
-    color: '#555',
+    color: '#9e8a78',
     lineHeight: 20,
   },
   itemDetailMyActivityRating: {
@@ -916,7 +920,7 @@ const styles = StyleSheet.create({
   itemDetailMyActivityRatingText: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#333',
+    color: '#6b5040',
   },
   itemDetailMyActivityTags: {
     flexDirection: 'row',
@@ -924,16 +928,16 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   itemDetailMyActivityTag: {
-    backgroundColor: '#f0e6f0',
+    backgroundColor: '#f9e8ed',
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#e98dca',
+    borderColor: '#d4849b',
   },
   itemDetailMyActivityTagText: {
     fontSize: 12,
-    color: '#c2516b',
+    color: '#b05060',
     fontWeight: '500',
   },
   statusSection: {
@@ -942,7 +946,7 @@ const styles = StyleSheet.create({
   statusTitle: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#000',
+    color: '#6b5040',
     marginBottom: 12,
   },
   statusButtonsContainer: {
@@ -963,54 +967,61 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: '#e0e0e0',
+    borderColor: '#e8ddd0',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
   statusButtonActive: {
-    borderColor: '#e98dca',
-    backgroundColor: '#fff5fa',
+    borderColor: '#d4849b',
+    backgroundColor: '#fdf6ee',
   },
   statusButtonText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#666',
+    color: '#9e8a78',
     textAlign: 'center',
   },
   statusButtonTextActive: {
-    color: '#e98dca',
+    color: '#d4849b',
   },
   deleteButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    paddingVertical: 12,
+    paddingVertical: 13,
     paddingHorizontal: 16,
-    borderRadius: 8,
-    backgroundColor: '#ffccdd',
-    marginVertical: 16,
+    borderRadius: 16,
+    backgroundColor: '#f9e8ed',
+    marginVertical: 14,
+    borderWidth: 1.5,
+    borderColor: '#e8a0b0',
   },
   deleteButtonText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#e98dca',
+    color: '#d4849b',
   },
   shareReviewButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 16,
-    borderRadius: 8,
-    backgroundColor: '#e98dca',
-    marginVertical: 12,
+    borderRadius: 16,
+    backgroundColor: '#d4849b',
+    marginVertical: 10,
+    shadowColor: '#d4849b',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
   },
   shareReviewButtonText: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: '700',
     color: '#fff',
   },
 });

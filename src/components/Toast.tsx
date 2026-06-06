@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     bottom: 100,
     left: 16,
     right: 16,
-    borderRadius: 8,
+    borderRadius: 16,
     overflow: 'hidden',
   },
   toastContent: {
@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
     gap: 12,
     paddingHorizontal: 16,
     paddingVertical: 14,
-    backgroundColor: '#e98dca',
-    borderRadius: 8,
+    backgroundColor: '#d4849b',
+    borderRadius: 16,
   },
   toastText: {
     fontSize: 14,

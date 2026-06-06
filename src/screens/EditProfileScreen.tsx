@@ -153,7 +153,7 @@ export default function EditProfileScreen({ isVisible, onClose }: EditProfileScr
         {/* Header */}
         <View style={[styles.header, { paddingTop: Math.max(insets.top, 12) }]}>
           <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-            <MaterialCommunityIcons name="close" size={24} color="#e98dca" />
+            <MaterialCommunityIcons name="close" size={24} color="#d4849b" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Edit Profile</Text>
           <TouchableOpacity onPress={handleSave} style={styles.saveButton}>
@@ -217,7 +217,7 @@ export default function EditProfileScreen({ isVisible, onClose }: EditProfileScr
                 {profilePicture ? (
                   <Image source={{ uri: profilePicture }} style={styles.profilePictureImage} />
                 ) : (
-                  <MaterialCommunityIcons name="account-circle" size={60} color="#e98dca" />
+                  <MaterialCommunityIcons name="account-circle" size={60} color="#d4849b" />
                 )}
               </View>
               <TouchableOpacity style={styles.uploadButton} onPress={handlePickImage}>
@@ -266,7 +266,7 @@ export default function EditProfileScreen({ isVisible, onClose }: EditProfileScr
                       <MaterialCommunityIcons
                         name="close-circle"
                         size={24}
-                        color="#e98dca"
+                        color="#d4849b"
                         style={styles.removeIcon}
                       />
                     </TouchableOpacity>
@@ -318,7 +318,7 @@ export default function EditProfileScreen({ isVisible, onClose }: EditProfileScr
                         <MaterialCommunityIcons
                           name="check-circle"
                           size={24}
-                          color="#e98dca"
+                          color="#d4849b"
                         />
                       )}
                     </TouchableOpacity>
@@ -340,7 +340,7 @@ export default function EditProfileScreen({ isVisible, onClose }: EditProfileScr
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fdf6ee',
   },
   header: {
     flexDirection: 'row',
@@ -350,7 +350,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: '#e8ddd0',
     zIndex: 10,
   },
   closeButton: {
@@ -362,12 +362,12 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#000',
+    color: '#6b5040',
   },
   saveButton: {
     paddingHorizontal: 12,
     paddingVertical: 8,
-    backgroundColor: '#e98dca',
+    backgroundColor: '#d4849b',
     borderRadius: 8,
   },
   saveButtonText: {
@@ -392,33 +392,33 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#000',
+    color: '#6b5040',
     marginBottom: 12,
   },
   textInput: {
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: '#e8ddd0',
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 14,
-    color: '#000',
+    color: '#6b5040',
     backgroundColor: '#f9f9f9',
   },
   bioInput: {
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: '#e8ddd0',
     borderRadius: 8,
     padding: 12,
     fontSize: 14,
-    color: '#000',
+    color: '#6b5040',
     minHeight: 80,
     textAlignVertical: 'top',
     marginBottom: 8,
   },
   characterCount: {
     fontSize: 12,
-    color: '#999',
+    color: '#9e8a78',
     textAlign: 'right',
   },
   profilePictureContainer: {
@@ -429,11 +429,11 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fdf6ee',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#e0e0e0',
+    borderColor: '#e8ddd0',
   },
   profilePictureImage: {
     width: '100%',
@@ -446,7 +446,7 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingHorizontal: 16,
     paddingVertical: 10,
-    backgroundColor: '#e98dca',
+    backgroundColor: '#d4849b',
     borderRadius: 8,
   },
   uploadButtonText: {
@@ -465,17 +465,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: '#e8ddd0',
     alignItems: 'center',
   },
   activeTab: {
-    backgroundColor: '#e98dca',
-    borderColor: '#e98dca',
+    backgroundColor: '#d4849b',
+    borderColor: '#d4849b',
   },
   categoryTabText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#666',
+    color: '#9e8a78',
   },
   activeTabText: {
     color: '#fff',
@@ -486,7 +486,7 @@ const styles = StyleSheet.create({
   selectedLabel: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#000',
+    color: '#6b5040',
     marginBottom: 8,
   },
   selectedGrid: {
@@ -503,7 +503,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: 8,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#e8ddd0',
   },
   removeIcon: {
     position: 'absolute',
@@ -513,7 +513,7 @@ const styles = StyleSheet.create({
   availableLabel: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#666',
+    color: '#9e8a78',
     marginBottom: 12,
   },
   itemCard: {
@@ -524,11 +524,11 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 8,
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: '#e8ddd0',
   },
   itemCardSelected: {
     backgroundColor: '#f0e6f0',
-    borderColor: '#e98dca',
+    borderColor: '#d4849b',
   },
   itemCardDisabled: {
     opacity: 0.5,
@@ -537,7 +537,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 75,
     borderRadius: 4,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#e8ddd0',
     marginRight: 12,
   },
   itemInfo: {
@@ -546,16 +546,16 @@ const styles = StyleSheet.create({
   itemTitle: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#000',
+    color: '#6b5040',
     marginBottom: 4,
   },
   itemAuthor: {
     fontSize: 12,
-    color: '#666',
+    color: '#9e8a78',
   },
   emptyText: {
     fontSize: 13,
-    color: '#999',
+    color: '#9e8a78',
     fontStyle: 'italic',
     textAlign: 'center',
     paddingVertical: 20,

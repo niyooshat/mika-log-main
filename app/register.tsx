@@ -16,6 +16,17 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+// ── Cottagecore palette ──────────────────────────────────────────────────────
+const CREAM       = '#fdf6ee';
+const ROSE        = '#d4849b';
+const ROSE_MIST   = '#f2c5ce';
+const BARK        = '#6b5040';
+const MUSHROOM    = '#9e8a78';
+const LINEN       = '#e8ddd0';
+const SAGE        = '#9aaa8a';
+const ERR         = '#b05060';
+const ERR_BG      = '#fceef0';
+
 export default function RegisterScreen() {
   const router = useRouter();
   const { signUp } = useAuth();
@@ -47,7 +58,7 @@ export default function RegisterScreen() {
       setLoading(false);
     } else {
       Alert.alert(
-        "Account created!",
+        "Account created! 🌸",
         "Check your email to confirm your account, then sign in.",
         [{ text: "Go to Sign In", onPress: () => router.replace("/login") }],
       );
@@ -65,24 +76,31 @@ export default function RegisterScreen() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
+          {/* Decorative petal strip */}
+          <View style={styles.petalStrip}>
+            {['🌿', '🌸', '🍃', '🌸', '🌿'].map((e, i) => (
+              <Text key={i} style={styles.petalEmoji}>{e}</Text>
+            ))}
+          </View>
+
           {/* Brand */}
           <View style={styles.brandContainer}>
             <View style={styles.logoCircle}>
               <MaterialCommunityIcons
                 name="book-open-variant"
-                size={40}
+                size={38}
                 color="#fff"
               />
             </View>
             <Text style={styles.appName}>mika</Text>
-            <Text style={styles.tagline}>your personal media diary</Text>
+            <Text style={styles.tagline}>begin your cozy diary ✦</Text>
           </View>
 
           {/* Card */}
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Create account</Text>
+            <Text style={styles.cardTitle}>Join the garden 🌼</Text>
             <Text style={styles.cardSubtitle}>
-              Start tracking books, films & shows
+              start tracking books, films & shows
             </Text>
 
             <View style={styles.fieldGroup}>
@@ -90,14 +108,14 @@ export default function RegisterScreen() {
               <View style={styles.inputRow}>
                 <MaterialCommunityIcons
                   name="email-outline"
-                  size={18}
-                  color="#bbb"
+                  size={17}
+                  color={MUSHROOM}
                   style={styles.inputIcon}
                 />
                 <TextInput
                   style={styles.input}
                   placeholder="you@example.com"
-                  placeholderTextColor="#bbb"
+                  placeholderTextColor={LINEN}
                   keyboardType="email-address"
                   autoCapitalize="none"
                   autoCorrect={false}
@@ -112,14 +130,14 @@ export default function RegisterScreen() {
               <View style={styles.inputRow}>
                 <MaterialCommunityIcons
                   name="lock-outline"
-                  size={18}
-                  color="#bbb"
+                  size={17}
+                  color={MUSHROOM}
                   style={styles.inputIcon}
                 />
                 <TextInput
                   style={[styles.input, { flex: 1 }]}
-                  placeholder="At least 6 characters"
-                  placeholderTextColor="#bbb"
+                  placeholder="at least 6 characters"
+                  placeholderTextColor={LINEN}
                   secureTextEntry={!showPassword}
                   value={password}
                   onChangeText={setPassword}
@@ -130,8 +148,8 @@ export default function RegisterScreen() {
                 >
                   <MaterialCommunityIcons
                     name={showPassword ? "eye-off-outline" : "eye-outline"}
-                    size={18}
-                    color="#bbb"
+                    size={17}
+                    color={MUSHROOM}
                   />
                 </TouchableOpacity>
               </View>
@@ -142,14 +160,14 @@ export default function RegisterScreen() {
               <View style={styles.inputRow}>
                 <MaterialCommunityIcons
                   name="lock-check-outline"
-                  size={18}
-                  color="#bbb"
+                  size={17}
+                  color={MUSHROOM}
                   style={styles.inputIcon}
                 />
                 <TextInput
                   style={[styles.input, { flex: 1 }]}
-                  placeholder="Re-enter your password"
-                  placeholderTextColor="#bbb"
+                  placeholder="re-enter your password"
+                  placeholderTextColor={LINEN}
                   secureTextEntry={!showPassword}
                   value={confirmPassword}
                   onChangeText={setConfirmPassword}
@@ -161,8 +179,8 @@ export default function RegisterScreen() {
               <View style={styles.errorBox}>
                 <MaterialCommunityIcons
                   name="alert-circle-outline"
-                  size={16}
-                  color="#c2516b"
+                  size={15}
+                  color={ERR}
                 />
                 <Text style={styles.errorText}>{error}</Text>
               </View>
@@ -177,7 +195,7 @@ export default function RegisterScreen() {
               {loading ? (
                 <ActivityIndicator color="#fff" />
               ) : (
-                <Text style={styles.primaryBtnText}>Create Account</Text>
+                <Text style={styles.primaryBtnText}>Create Account ✦</Text>
               )}
             </TouchableOpacity>
           </View>
@@ -185,7 +203,7 @@ export default function RegisterScreen() {
           <View style={styles.footer}>
             <Text style={styles.footerText}>Already have an account?</Text>
             <TouchableOpacity onPress={() => router.push("/login")}>
-              <Text style={styles.footerLink}> Sign in</Text>
+              <Text style={styles.footerLink}> Sign in 🌿</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -194,97 +212,106 @@ export default function RegisterScreen() {
   );
 }
 
-const PINK = "#e98dca";
-const PINK_DARK = "#c2516b";
-
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "#fdf5f7" },
+  safe: { flex: 1, backgroundColor: CREAM },
   container: {
     flexGrow: 1,
     justifyContent: "center",
-    paddingHorizontal: 24,
+    paddingHorizontal: 26,
     paddingVertical: 32,
   },
-  brandContainer: { alignItems: "center", marginBottom: 32 },
+  petalStrip: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 8,
+    marginBottom: 20,
+  },
+  petalEmoji: { fontSize: 20 },
+  brandContainer: { alignItems: "center", marginBottom: 26 },
   logoCircle: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: PINK,
+    width: 76,
+    height: 76,
+    borderRadius: 38,
+    backgroundColor: ROSE,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 12,
-    shadowColor: PINK,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.35,
-    shadowRadius: 10,
+    marginBottom: 14,
+    borderWidth: 3,
+    borderColor: ROSE_MIST,
+    shadowColor: ROSE,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
     elevation: 6,
   },
   appName: {
-    fontSize: 32,
-    fontWeight: "700",
-    color: PINK_DARK,
-    letterSpacing: 1,
+    fontSize: 34,
+    fontWeight: "800",
+    color: BARK,
+    letterSpacing: 3,
+    fontStyle: 'italic',
   },
-  tagline: { fontSize: 13, color: "#999", marginTop: 4 },
+  tagline: { fontSize: 13, color: MUSHROOM, marginTop: 5, letterSpacing: 0.5 },
   card: {
-    backgroundColor: "#fff",
-    borderRadius: 20,
-    padding: 24,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 12,
-    elevation: 3,
+    backgroundColor: '#fffaf5',
+    borderRadius: 24,
+    padding: 26,
+    borderWidth: 1.5,
+    borderColor: LINEN,
+    shadowColor: BARK,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.08,
+    shadowRadius: 14,
+    elevation: 4,
   },
   cardTitle: {
     fontSize: 22,
     fontWeight: "700",
-    color: "#000",
+    color: BARK,
     marginBottom: 4,
   },
-  cardSubtitle: { fontSize: 14, color: "#999", marginBottom: 24 },
+  cardSubtitle: { fontSize: 13, color: MUSHROOM, marginBottom: 22 },
   fieldGroup: { marginBottom: 16 },
-  label: { fontSize: 13, fontWeight: "600", color: "#555", marginBottom: 8 },
+  label: { fontSize: 12, fontWeight: "700", color: SAGE, marginBottom: 8, letterSpacing: 0.8, textTransform: 'uppercase' },
   inputRow: {
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#e0e0e0",
-    borderRadius: 10,
-    backgroundColor: "#f9f9f9",
-    paddingHorizontal: 12,
-    paddingVertical: Platform.OS === "ios" ? 12 : 8,
+    borderWidth: 1.5,
+    borderColor: LINEN,
+    borderRadius: 14,
+    backgroundColor: CREAM,
+    paddingHorizontal: 14,
+    paddingVertical: Platform.OS === "ios" ? 13 : 9,
   },
-  inputIcon: { marginRight: 8 },
-  input: { flex: 1, fontSize: 14, color: "#000" },
+  inputIcon: { marginRight: 9 },
+  input: { flex: 1, fontSize: 14, color: BARK },
   eyeBtn: { padding: 4 },
   errorBox: {
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
-    backgroundColor: "#fff0f3",
-    borderWidth: 1,
-    borderColor: "#f0c0c8",
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 16,
-  },
-  errorText: { flex: 1, fontSize: 13, color: PINK_DARK },
-  primaryBtn: {
-    backgroundColor: PINK,
+    backgroundColor: ERR_BG,
+    borderWidth: 1.5,
+    borderColor: '#f0c4cb',
     borderRadius: 12,
-    paddingVertical: 14,
-    alignItems: "center",
-    marginTop: 4,
-    shadowColor: PINK,
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 4,
+    padding: 10,
+    marginBottom: 14,
   },
-  primaryBtnText: { color: "#fff", fontWeight: "700", fontSize: 15 },
-  footer: { flexDirection: "row", justifyContent: "center", marginTop: 24 },
-  footerText: { fontSize: 14, color: "#888" },
-  footerLink: { fontSize: 14, color: PINK, fontWeight: "700" },
+  errorText: { flex: 1, fontSize: 13, color: ERR },
+  primaryBtn: {
+    backgroundColor: ROSE,
+    borderRadius: 16,
+    paddingVertical: 15,
+    alignItems: "center",
+    marginTop: 6,
+    shadowColor: ROSE,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.35,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  primaryBtnText: { color: "#fff", fontWeight: "700", fontSize: 15, letterSpacing: 0.5 },
+  footer: { flexDirection: "row", justifyContent: "center", marginTop: 26 },
+  footerText: { fontSize: 14, color: MUSHROOM },
+  footerLink: { fontSize: 14, color: ROSE, fontWeight: "700" },
 });

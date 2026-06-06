@@ -4,8 +4,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function ClubsScreen() {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
+      <Text style={styles.emoji}>🌸</Text>
       <Text style={styles.title}>Clubs</Text>
-      <Text style={styles.subtitle}>Join and create book/film clubs coming soon!</Text>
+      <Text style={styles.subtitle}>Join and create cozy book & film clubs — coming soon ✦</Text>
     </SafeAreaView>
   );
 }
@@ -15,16 +16,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fdf6ee',
+    paddingHorizontal: 32,
+  },
+  emoji: {
+    fontSize: 56,
+    marginBottom: 16,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#000',
-    marginBottom: 8,
+    fontSize: 26,
+    fontWeight: '800',
+    color: '#6b5040',
+    marginBottom: 10,
+    letterSpacing: 2,
+    fontStyle: 'italic',
   },
   subtitle: {
     fontSize: 14,
-    color: '#666',
+    color: '#9e8a78',
+    textAlign: 'center',
+    lineHeight: 21,
   },
 });

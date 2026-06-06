@@ -17,13 +17,13 @@ export const LibraryItemCard: React.FC<LibraryItemCardProps> = ({ item }) => {
 
     for (let i = 0; i < fullStars; i++) {
       stars.push(
-        <MaterialCommunityIcons key={`full-${i}`} name="star" size={14} color="#e98dca" />
+        <MaterialCommunityIcons key={`full-${i}`} name="star" size={14} color="#d4849b" />
       );
     }
 
     if (hasHalfStar) {
       stars.push(
-        <MaterialCommunityIcons key="half" name="star-half-full" size={14} color="#e98dca" />
+        <MaterialCommunityIcons key="half" name="star-half-full" size={14} color="#d4849b" />
       );
     }
 
@@ -34,7 +34,7 @@ export const LibraryItemCard: React.FC<LibraryItemCardProps> = ({ item }) => {
           key={`empty-${i}`}
           name="star-outline"
           size={14}
-          color="#999"
+          color="#e8ddd0"
         />
       );
     }
@@ -73,24 +73,35 @@ export const LibraryItemCard: React.FC<LibraryItemCardProps> = ({ item }) => {
   );
 };
 
+const CREAM    = '#fdf6ee';
+const PARCHMENT= '#fffaf5';
+const ROSE     = '#d4849b';
+const BLUSH    = '#e8a0b0';
+const ROSE_MIST= '#f9e8ed';
+const BARK     = '#6b5040';
+const MUSHROOM = '#9e8a78';
+const LINEN    = '#e8ddd0';
+
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    marginHorizontal: 16,
-    marginVertical: 8,
+    backgroundColor: PARCHMENT,
+    borderRadius: 16,
+    marginHorizontal: 14,
+    marginVertical: 7,
     flexDirection: 'row',
     overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    borderWidth: 1.5,
+    borderColor: LINEN,
+    shadowColor: '#6b5040',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
     elevation: 3,
   },
   coverImage: {
-    width: 100,
-    aspectRatio: 150 / 220,
-    backgroundColor: '#f0f0f0',
+    width: 95,
+    aspectRatio: 2 / 3,
+    backgroundColor: LINEN,
   },
   content: {
     flex: 1,
@@ -99,17 +110,17 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#000',
+    color: BARK,
     marginBottom: 2,
   },
   authorDirector: {
     fontSize: 12,
-    color: '#666',
+    color: MUSHROOM,
     marginBottom: 6,
   },
   synopsis: {
     fontSize: 11,
-    color: '#555',
+    color: MUSHROOM,
     lineHeight: 15,
     marginBottom: 6,
   },
@@ -119,17 +130,17 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   tag: {
-    backgroundColor: '#f0e6f0',
+    backgroundColor: ROSE_MIST,
     paddingHorizontal: 8,
     paddingVertical: 2,
-    borderRadius: 8,
-    borderWidth: 0.5,
-    borderColor: '#e98dca',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: BLUSH,
   },
   tagText: {
     fontSize: 10,
-    color: '#c2516b',
-    fontWeight: '500',
+    color: ROSE,
+    fontWeight: '600',
   },
   ratingContainer: {
     flexDirection: 'row',
@@ -142,7 +153,7 @@ const styles = StyleSheet.create({
   },
   ratingText: {
     fontSize: 11,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: '700',
+    color: BARK,
   },
 });

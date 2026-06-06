@@ -153,7 +153,7 @@ export default function ProfileScreen() {
           key={`full-${i}`}
           name="star"
           size={20}
-          color="#e98dca"
+          color="#d4849b"
         />,
       );
     }
@@ -164,7 +164,7 @@ export default function ProfileScreen() {
           key="half"
           name="star-half-full"
           size={20}
-          color="#e98dca"
+          color="#d4849b"
         />,
       );
     }
@@ -208,7 +208,7 @@ export default function ProfileScreen() {
               <MaterialCommunityIcons
                 name="chevron-left"
                 size={24}
-                color="#e98dca"
+                color="#d4849b"
               />
             </TouchableOpacity>
             <Text style={styles.detailHeaderTitle}>
@@ -381,7 +381,7 @@ export default function ProfileScreen() {
             <MaterialCommunityIcons
               name="share-variant"
               size={20}
-              color="#e98dca"
+              color="#d4849b"
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -389,7 +389,7 @@ export default function ProfileScreen() {
             onPress={handleEditProfile}
             activeOpacity={0.6}
           >
-            <MaterialCommunityIcons name="cog" size={20} color="#e98dca" />
+            <MaterialCommunityIcons name="cog" size={20} color="#d4849b" />
           </TouchableOpacity>
           {user ? (
             <TouchableOpacity
@@ -397,7 +397,7 @@ export default function ProfileScreen() {
               onPress={handleSignOut}
               activeOpacity={0.6}
             >
-              <MaterialCommunityIcons name="logout" size={20} color="#e98dca" />
+              <MaterialCommunityIcons name="logout" size={20} color="#d4849b" />
             </TouchableOpacity>
           ) : null}
         </View>
@@ -409,7 +409,7 @@ export default function ProfileScreen() {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
-            tintColor="#e98dca"
+            tintColor="#d4849b"
             title="Pull to refresh"
           />
         }
@@ -427,7 +427,7 @@ export default function ProfileScreen() {
               <MaterialCommunityIcons
                 name="account-circle"
                 size={80}
-                color="#e98dca"
+                color="#d4849b"
               />
             )}
           </View>
@@ -498,7 +498,7 @@ export default function ProfileScreen() {
                     {review.itemTitle}
                   </Text>
                   <View style={styles.reviewMeta}>
-                    <Text style={styles.reviewRating}>⭐ {review.rating}</Text>
+                    <Text style={styles.reviewRating}>â­ {review.rating}</Text>
                     <Text style={styles.reviewDate}>
                       {new Date(review.createdAt).toLocaleDateString()}
                     </Text>
@@ -516,7 +516,7 @@ export default function ProfileScreen() {
           <View style={styles.section}>
             <TouchableOpacity style={styles.settingItem}>
               <View style={styles.settingContent}>
-                <MaterialCommunityIcons name="cog" size={20} color="#e98dca" />
+                <MaterialCommunityIcons name="cog" size={20} color="#d4849b" />
                 <Text style={styles.settingText}>Settings</Text>
               </View>
               <MaterialCommunityIcons
@@ -534,7 +534,7 @@ export default function ProfileScreen() {
                 <MaterialCommunityIcons
                   name="information"
                   size={20}
-                  color="#e98dca"
+                  color="#d4849b"
                 />
                 <Text style={styles.settingText}>About MikaDiary</Text>
               </View>
@@ -568,24 +568,527 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#fdf6ee",
   },
   topBar: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 16,
+    paddingHorizontal: 18,
     paddingTop: 12,
     paddingBottom: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f0f0f0",
+    borderBottomWidth: 1.5,
+    borderBottomColor: "#e8ddd0",
+    backgroundColor: "#f5ead8",
   },
   topBarTitle: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: "800",
-    color: "#000",
+    color: "#6b5040",
+    letterSpacing: 2,
+    fontStyle: "italic",
+  },
+  iconButtonsContainer: {
+    flexDirection: "row",
+    gap: 10,
+  },
+  iconButton: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: "#f9e8ed",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#e8ddd0",
+  },
+  header: {
+    paddingVertical: 20,
+    paddingHorizontal: 16,
+    alignItems: "center",
+    borderBottomWidth: 1.5,
+    borderBottomColor: "#e8ddd0",
+    backgroundColor: "#fffaf5",
+  },
+  profileImage: {
+    width: 86,
+    height: 86,
+    borderRadius: 43,
+    marginBottom: 10,
+    backgroundColor: "transparent",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 3,
+    borderColor: "#f2c5ce",
+  },
+  profileImageContent: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 40,
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: "800",
+    color: "#6b5040",
+    marginBottom: 2,
     letterSpacing: 0.5,
   },
+  pronouns: {
+    fontSize: 12,
+    fontWeight: "600",
+    color: "#9aaa8a",
+    marginBottom: 6,
+  },
+  bio: {
+    fontSize: 13,
+    lineHeight: 18,
+    color: "#9e8a78",
+    textAlign: "center",
+    marginBottom: 0,
+    paddingHorizontal: 8,
+  },
+  statsContainer: {
+    flexDirection: "row",
+    paddingVertical: 18,
+    paddingHorizontal: 16,
+    backgroundColor: "#f5ead8",
+    borderBottomWidth: 1.5,
+    borderBottomColor: "#e8ddd0",
+  },
+  statItem: {
+    flex: 1,
+    alignItems: "center",
+  },
+  statNumber: {
+    fontSize: 22,
+    fontWeight: "800",
+    color: "#6b5040",
+    marginBottom: 3,
+  },
+  statLabel: {
+    fontSize: 11,
+    fontWeight: "600",
+    color: "#9e8a78",
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+  },
+  statDivider: {
+    width: 1.5,
+    backgroundColor: "#e8ddd0",
+  },
+  sectionsContainer: {
+    paddingVertical: 8,
+  },
+  section: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#e8ddd0",
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+  },
+  favoritesGrid: {
+    flexDirection: "row",
+    gap: 8,
+    marginTop: 12,
+  },
+  favoriteItemWrapper: {
+    width: "23%",
+    alignItems: "center",
+  },
+  favoriteCover: {
+    width: "100%",
+    aspectRatio: 2 / 3,
+    borderRadius: 10,
+    backgroundColor: "#e8ddd0",
+    marginBottom: 6,
+    borderWidth: 1,
+    borderColor: "#e8ddd0",
+  },
+  favoriteCoverPlaceholder: {
+    width: "100%",
+    aspectRatio: 2 / 3,
+    borderRadius: 10,
+    backgroundColor: "#f5ead8",
+    borderWidth: 1.5,
+    borderColor: "#e8ddd0",
+    borderStyle: "dashed",
+    marginBottom: 6,
+  },
+  favoriteTitlePlaceholder: {
+    height: 12,
+    width: "80%",
+    backgroundColor: "transparent",
+    marginBottom: 4,
+  },
+  favoriteTitle: {
+    fontSize: 10,
+    fontWeight: "600",
+    color: "#6b5040",
+    textAlign: "center",
+    lineHeight: 13,
+  },
+  favoriteRating: {
+    fontSize: 10,
+    fontWeight: "600",
+    color: "#d4849b",
+    marginTop: 2,
+  },
+  emptyText: {
+    fontSize: 13,
+    color: "#9e8a78",
+    fontStyle: "italic",
+    textAlign: "center",
+    marginTop: 12,
+  },
+  reviewItem: {
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "#e8ddd0",
+  },
+  reviewTitle: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#6b5040",
+    marginBottom: 4,
+  },
+  reviewMeta: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  reviewRating: {
+    fontSize: 12,
+    fontWeight: "700",
+    color: "#d4849b",
+  },
+  reviewDate: {
+    fontSize: 11,
+    color: "#9e8a78",
+  },
+  sectionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 12,
+  },
+  sectionTitle: {
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#6b5040",
+  },
+  placeholderText: {
+    fontSize: 13,
+    color: "#9e8a78",
+    fontStyle: "italic",
+  },
+  settingItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 8,
+  },
+  settingContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  settingText: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#6b5040",
+  },
+  logoutButton: {
+    marginHorizontal: 16,
+    marginVertical: 20,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderRadius: 16,
+    backgroundColor: "#f9e8ed",
+    alignItems: "center",
+    borderWidth: 1.5,
+    borderColor: "#e8a0b0",
+  },
+  logoutText: {
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#d4849b",
+  },
+  detailContainer: {
+    flex: 1,
+    backgroundColor: "#fdf6ee",
+  },
+  detailHeader: {
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    backgroundColor: "#f5ead8",
+    borderBottomWidth: 1.5,
+    borderBottomColor: "#e8ddd0",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  backButton: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  detailHeaderTitle: {
+    fontSize: 17,
+    fontWeight: "700",
+    color: "#6b5040",
+    flex: 1,
+    textAlign: "center",
+    marginHorizontal: 8,
+  },
+  detailContent: {
+    flex: 1,
+    paddingHorizontal: 16,
+  },
+  coverImageContainer: {
+    alignItems: "center",
+    paddingVertical: 24,
+  },
+  detailCoverImage: {
+    width: 140,
+    aspectRatio: 2 / 3,
+    borderRadius: 14,
+    backgroundColor: "#e8ddd0",
+    shadowColor: "#6b5040",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.18,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  detailInfo: {
+    backgroundColor: "#fffaf5",
+    borderRadius: 20,
+    padding: 18,
+    marginBottom: 14,
+    borderWidth: 1.5,
+    borderColor: "#e8ddd0",
+  },
+  detailTitle: {
+    fontSize: 20,
+    fontWeight: "800",
+    color: "#6b5040",
+    marginBottom: 4,
+  },
+  detailAuthor: {
+    fontSize: 13,
+    color: "#9aaa8a",
+    fontWeight: "600",
+    marginBottom: 12,
+    textTransform: "uppercase",
+    letterSpacing: 0.8,
+  },
+  detailTagsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 6,
+    marginBottom: 12,
+  },
+  detailTag: {
+    backgroundColor: "#f9e8ed",
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#e8a0b0",
+  },
+  detailTagText: {
+    fontSize: 11,
+    color: "#d4849b",
+    fontWeight: "600",
+  },
+  detailRatingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginBottom: 12,
+  },
+  stars: {
+    flexDirection: "row",
+    gap: 2,
+  },
+  detailRatingText: {
+    fontSize: 13,
+    fontWeight: "700",
+    color: "#6b5040",
+  },
+  synopsisTitle: {
+    fontSize: 13,
+    fontWeight: "700",
+    color: "#9e8a78",
+    marginBottom: 8,
+    letterSpacing: 0.5,
+  },
+  synopsis: {
+    fontSize: 14,
+    color: "#6b5040",
+    lineHeight: 22,
+  },
+  myActivitySection: {
+    backgroundColor: "#ede5f5",
+    borderRadius: 20,
+    padding: 18,
+    marginBottom: 14,
+    borderWidth: 1.5,
+    borderColor: "#c8b4d4",
+  },
+  myActivityTitle: {
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#6b5040",
+    marginBottom: 12,
+  },
+  myActivityContent: {
+    gap: 10,
+  },
+  myActivityText: {
+    fontSize: 13,
+    color: "#6b5040",
+    lineHeight: 20,
+  },
+  myActivityRating: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  myActivityStars: {
+    flexDirection: "row",
+    gap: 2,
+  },
+  myActivityRatingText: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: "#6b5040",
+  },
+  myActivityTags: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 6,
+  },
+  myActivityTag: {
+    backgroundColor: "#f9e8ed",
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#e8a0b0",
+  },
+  myActivityTagText: {
+    fontSize: 11,
+    color: "#d4849b",
+    fontWeight: "600",
+  },
+  detailNotesSection: {
+    backgroundColor: "#fffaf5",
+    borderRadius: 20,
+    padding: 18,
+    marginBottom: 24,
+    borderWidth: 1.5,
+    borderColor: "#e8ddd0",
+  },
+  detailNotesTitle: {
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#6b5040",
+    marginBottom: 12,
+  },
+  detailNotesText: {
+    fontSize: 13,
+    color: "#6b5040",
+    lineHeight: 20,
+  },
+  scrollContent: {
+    flexGrow: 1,
+  },
+  detailCoverContainer: {
+    alignItems: "center",
+    paddingVertical: 20,
+  },
+  detailTitleSection: {
+    marginBottom: 16,
+  },
+  detailType: {
+    fontSize: 13,
+    fontWeight: "700",
+    color: "#9aaa8a",
+    marginBottom: 8,
+    textTransform: "uppercase",
+    letterSpacing: 1,
+  },
+  detailMyActivitySection: {
+    backgroundColor: "#ede5f5",
+    borderRadius: 20,
+    padding: 18,
+    marginBottom: 24,
+    borderWidth: 1.5,
+    borderColor: "#c8b4d4",
+  },
+  detailMyActivityTitle: {
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#6b5040",
+    marginBottom: 12,
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+  },
+  detailMyActivityContent: {
+    gap: 12,
+  },
+  detailMyActivityText: {
+    fontSize: 14,
+    color: "#6b5040",
+    lineHeight: 22,
+  },
+  detailMyActivityRating: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  detailMyActivityStars: {
+    flexDirection: "row",
+    gap: 4,
+  },
+  detailMyActivityRatingText: {
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#d4849b",
+  },
+  detailMyActivityTags: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+  },
+  detailMyActivityTag: {
+    backgroundColor: "#fdf6ee",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#e8a0b0",
+  },
+  detailMyActivityTagText: {
+    fontSize: 12,
+    color: "#d4849b",
+    fontWeight: "600",
+  },
+  detailSynopsisSection: {
+    marginBottom: 32,
+  },
+  detailSynopsisTitle: {
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#6b5040",
+    marginBottom: 12,
+  },
+  detailSynopsisText: {
+    fontSize: 14,
+    color: "#6b5040",
+    lineHeight: 22,
+  },
+});
   iconButtonsContainer: {
     flexDirection: "row",
     gap: 12,
@@ -717,7 +1220,7 @@ const styles = StyleSheet.create({
   favoriteRating: {
     fontSize: 10,
     fontWeight: "600",
-    color: "#e98dca",
+    color: "#d4849b",
     marginTop: 2,
   },
   emptyText: {
@@ -746,7 +1249,7 @@ const styles = StyleSheet.create({
   reviewRating: {
     fontSize: 12,
     fontWeight: "600",
-    color: "#e98dca",
+    color: "#d4849b",
   },
   reviewDate: {
     fontSize: 11,
@@ -796,7 +1299,7 @@ const styles = StyleSheet.create({
   logoutText: {
     fontSize: 16,
     fontWeight: "700",
-    color: "#e98dca",
+    color: "#d4849b",
   },
   detailContainer: {
     flex: 1,
@@ -869,7 +1372,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: "#e98dca",
+    borderColor: "#d4849b",
   },
   detailTagText: {
     fontSize: 12,
@@ -947,7 +1450,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: "#e98dca",
+    borderColor: "#d4849b",
   },
   myActivityTagText: {
     fontSize: 12,
@@ -984,7 +1487,7 @@ const styles = StyleSheet.create({
   detailType: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#e98dca",
+    color: "#d4849b",
     marginBottom: 8,
     textTransform: "uppercase",
     letterSpacing: 1,
@@ -1000,7 +1503,7 @@ const styles = StyleSheet.create({
   detailMyActivityTitle: {
     fontSize: 16,
     fontWeight: "700",
-    color: "#e98dca",
+    color: "#d4849b",
     marginBottom: 12,
     textTransform: "uppercase",
     letterSpacing: 0.5,
@@ -1025,7 +1528,7 @@ const styles = StyleSheet.create({
   detailMyActivityRatingText: {
     fontSize: 16,
     fontWeight: "700",
-    color: "#e98dca",
+    color: "#d4849b",
   },
   detailMyActivityTags: {
     flexDirection: "row",
@@ -1038,7 +1541,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: "#e98dca",
+    borderColor: "#d4849b",
   },
   detailMyActivityTagText: {
     fontSize: 13,

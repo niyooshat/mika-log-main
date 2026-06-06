@@ -119,7 +119,7 @@ export default function WriteReviewScreen({ item, onClose, onSubmit }: WriteRevi
       {/* Header */}
       <View style={[styles.header, { paddingTop: Math.max(insets.top, 12) }]}>
         <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-          <MaterialCommunityIcons name="close" size={24} color="#000" />
+          <MaterialCommunityIcons name="close" size={24} color="#6b5040" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Share Your Review</Text>
         <View style={{ width: 24 }} />
@@ -155,7 +155,7 @@ export default function WriteReviewScreen({ item, onClose, onSubmit }: WriteRevi
             <Text style={styles.ratingText}>
               You rated this {rating === 1 ? 'a' : rating === 2 ? 'a' : ''} {rating}
               {' '}
-              ⭐
+              â­
             </Text>
           )}
         </View>
@@ -198,7 +198,7 @@ export default function WriteReviewScreen({ item, onClose, onSubmit }: WriteRevi
                     style={styles.selectedTag}
                     onPress={() => toggleTag(tag)}>
                     <Text style={styles.selectedTagText}>{tag}</Text>
-                    <MaterialCommunityIcons name="close" size={14} color="#e98dca" />
+                    <MaterialCommunityIcons name="close" size={14} color="#d4849b" />
                   </TouchableOpacity>
                 ))}
               </View>
@@ -213,7 +213,7 @@ export default function WriteReviewScreen({ item, onClose, onSubmit }: WriteRevi
                 key={tag}
                 style={styles.tagButton}
                 onPress={() => toggleTag(tag)}>
-                <MaterialCommunityIcons name="plus" size={14} color="#e98dca" />
+                <MaterialCommunityIcons name="plus" size={14} color="#d4849b" />
                 <Text style={styles.tagButtonText}>{tag}</Text>
               </TouchableOpacity>
             ))}
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: '#e8ddd0',
     backgroundColor: '#fff',
     zIndex: 10,
   },
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#000',
+    color: '#6b5040',
   },
   itemInfo: {
     flexDirection: 'row',
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     width: 80,
     aspectRatio: 150 / 220,
     borderRadius: 8,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#e8ddd0',
   },
   itemDetails: {
     flex: 1,
@@ -287,13 +287,13 @@ const styles = StyleSheet.create({
   itemTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#000',
+    color: '#6b5040',
     lineHeight: 20,
   },
   itemAuthor: {
     fontSize: 13,
     fontWeight: '500',
-    color: '#666',
+    color: '#9e8a78',
   },
   typeBadge: {
     alignSelf: 'flex-start',
@@ -302,23 +302,23 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: '#fff5fa',
     borderWidth: 1,
-    borderColor: '#e98dca',
+    borderColor: '#d4849b',
   },
   typeBadgeText: {
     fontSize: 11,
     fontWeight: '600',
-    color: '#e98dca',
+    color: '#d4849b',
   },
   section: {
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: '#e8ddd0',
   },
   sectionTitle: {
     fontSize: 14,
     fontWeight: '700',
-    color: '#000',
+    color: '#6b5040',
     marginBottom: 12,
   },
   starsContainer: {
@@ -331,34 +331,34 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14,
     fontWeight: '600',
-    color: '#e98dca',
+    color: '#d4849b',
     marginTop: 8,
   },
   reviewInput: {
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: '#e8ddd0',
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 12,
     fontSize: 14,
     lineHeight: 20,
-    color: '#000',
+    color: '#6b5040',
     backgroundColor: '#f9f9f9',
   },
   characterCount: {
     fontSize: 12,
-    color: '#999',
+    color: '#9e8a78',
     marginTop: 6,
     textAlign: 'right',
   },
   tagSearchInput: {
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: '#e8ddd0',
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 14,
-    color: '#000',
+    color: '#6b5040',
     backgroundColor: '#f9f9f9',
     marginBottom: 12,
   },
@@ -368,13 +368,13 @@ const styles = StyleSheet.create({
   selectedTagsLabel: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#666',
+    color: '#9e8a78',
     marginBottom: 8,
   },
   suggestedTagsLabel: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#666',
+    color: '#9e8a78',
     marginBottom: 8,
   },
   tagsGrid: {
@@ -391,12 +391,12 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: '#fff5fa',
     borderWidth: 1,
-    borderColor: '#e98dca',
+    borderColor: '#d4849b',
   },
   selectedTagText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#e98dca',
+    color: '#d4849b',
   },
   tagButton: {
     flexDirection: 'row',
@@ -407,12 +407,12 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: '#f9f9f9',
     borderWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: '#e8ddd0',
   },
   tagButtonText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#555',
+    color: '#9e8a78',
   },
   postButton: {
     flexDirection: 'row',
@@ -423,7 +423,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     paddingVertical: 14,
     borderRadius: 8,
-    backgroundColor: '#e98dca',
+    backgroundColor: '#d4849b',
   },
   postButtonDisabled: {
     opacity: 0.6,

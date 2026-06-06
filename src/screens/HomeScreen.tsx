@@ -7,7 +7,21 @@ import WriteReviewScreen from './WriteReviewScreen';
 import { useLibrary } from '../context/LibraryContext';
 import { Post, LibraryItem, LibraryItemStatus } from '../types';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
+
+// ── Cottagecore palette ──────────────────────────────────────────────────────
+const CREAM     = '#fdf6ee';
+const PARCHMENT = '#f5ead8';
+const ROSE      = '#d4849b';
+const BLUSH     = '#e8a0b0';
+const ROSE_MIST = '#f9e8ed';
+const BARK      = '#6b5040';
+const MUSHROOM  = '#9e8a78';
+const LINEN     = '#e8ddd0';
+const SAGE      = '#9aaa8a';
+const MOSS      = '#dde8d5';
+const LAVENDER  = '#c8b4d4';
+const LAV_MIST  = '#ede5f5';
 
 export default function HomeScreen({ navigation }: any) {
   const [refreshing, setRefreshing] = useState(false);
@@ -19,13 +33,10 @@ export default function HomeScreen({ navigation }: any) {
 
   const handleRefresh = () => {
     setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 500);
+    setTimeout(() => { setRefreshing(false); }, 500);
   };
 
   const handleWriteReview = () => {
-    // Find a finished item to review
     const finishedItems = libraryItems.filter((item) => item.status === 'finished');
     if (finishedItems.length > 0) {
       setSelectedItemForReview(finishedItems[0]);
@@ -56,16 +67,11 @@ export default function HomeScreen({ navigation }: any) {
 
   const handleAddToLibrary = (status: LibraryItemStatus) => {
     if (!selectedPost || !selectedPost.itemId) return;
-    
-    // Check if item already exists in library
     const existingItem = libraryItems.find((item) => item.id === selectedPost.itemId);
-    
     if (existingItem) {
       alert(`This ${selectedPost.type} is already in your library!`);
       return;
     }
-
-    // Create new library item
     const newItem: LibraryItem = {
       id: selectedPost.itemId,
       type: selectedPost.type,
@@ -78,7 +84,6 @@ export default function HomeScreen({ navigation }: any) {
       rating: selectedPost.rating,
       dateAdded: new Date().toISOString(),
     };
-
     addToLibrary(newItem, status);
     alert(`Added to ${status === 'want' ? 'Want to Read/Watch' : status === 'current' ? 'Currently Reading/Watching' : 'Finished'}!`);
     handleCloseDetail();
@@ -88,37 +93,20 @@ export default function HomeScreen({ navigation }: any) {
     const stars = [];
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
-
     for (let i = 0; i < fullStars; i++) {
-      stars.push(
-        <MaterialCommunityIcons key={`full-${i}`} name="star" size={20} color="#e98dca" />
-      );
+      stars.push(<MaterialCommunityIcons key={`full-${i}`} name="star" size={20} color={ROSE} />);
     }
-
     if (hasHalfStar) {
-      stars.push(
-        <MaterialCommunityIcons key="half" name="star-half-full" size={20} color="#e98dca" />
-      );
+      stars.push(<MaterialCommunityIcons key="half" name="star-half-full" size={20} color={ROSE} />);
     }
-
     const emptyStars = 5 - Math.ceil(rating);
     for (let i = 0; i < emptyStars; i++) {
-      stars.push(
-        <MaterialCommunityIcons
-          key={`empty-${i}`}
-          name="star-outline"
-          size={20}
-          color="#999"
-        />
-      );
+      stars.push(<MaterialCommunityIcons key={`empty-${i}`} name="star-outline" size={20} color={LINEN} />);
     }
-
     return stars;
   };
 
-  // Combine and sort all posts
   const allPosts = useMemo(() => {
-    // Convert user reviews to posts
     const reviewPosts: Post[] = userReviews.map((review) => ({
       id: review.id,
       author: {
@@ -135,50 +123,46 @@ export default function HomeScreen({ navigation }: any) {
       createdAt: new Date(review.createdAt),
       itemId: review.itemId,
     }));
-
-    return reviewPosts.sort(
-      (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
-    );
+    return reviewPosts.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }, [userReviews]);
 
   const renderEmptyState = () => (
     <View style={styles.emptyState}>
-      <Text style={styles.emptyStateTitle}>No Activity Yet</Text>
+      <Text style={styles.emptyStateEmoji}>🌿</Text>
+      <Text style={styles.emptyStateTitle}>Your diary is waiting</Text>
       <Text style={styles.emptyStateText}>
-        Start adding finished books, films, and shows to your library to see your activity here!
+        Add finished books, films, and shows to your library to begin your cozy diary ✦
       </Text>
     </View>
   );
 
   const renderDetailView = () => {
     if (!selectedPost) return null;
-
     return (
       <Modal
         visible={viewMode === 'detail'}
         animationType="slide"
         onRequestClose={handleCloseDetail}>
         <SafeAreaView style={styles.detailContainer} edges={['top']}>
-          {/* Header with Back Button */}
           <View style={styles.detailHeader}>
             <TouchableOpacity onPress={handleCloseDetail} style={styles.backButton}>
-              <MaterialCommunityIcons name="chevron-left" size={24} color="#e98dca" />
+              <MaterialCommunityIcons name="chevron-left" size={26} color={ROSE} />
             </TouchableOpacity>
-            <Text style={styles.detailHeaderTitle}>{selectedPost.title}</Text>
-            <View style={{ width: 24 }} />
+            <Text style={styles.detailHeaderTitle} numberOfLines={1}>{selectedPost.title}</Text>
+            <View style={{ width: 40 }} />
           </View>
 
           <ScrollView style={styles.detailContent} showsVerticalScrollIndicator={false}>
-            {/* Cover Image */}
             <View style={styles.coverImageContainer}>
               <Image
                 source={{ uri: selectedPost.coverImage }}
                 style={styles.detailCoverImage}
                 resizeMode="cover"
               />
+              {/* Decorative ring */}
+              <View style={styles.coverRing} />
             </View>
 
-            {/* Detail Info Section */}
             <View style={styles.detailInfo}>
               <Text style={styles.detailTitle}>
                 {selectedPost.title.replace(/^(Finished: )/, '')}
@@ -187,7 +171,6 @@ export default function HomeScreen({ navigation }: any) {
                 {selectedPost.type.charAt(0).toUpperCase() + selectedPost.type.slice(1)}
               </Text>
 
-              {/* Tags */}
               {selectedPost.tags.length > 0 && (
                 <View style={styles.detailTagsContainer}>
                   {selectedPost.tags.map((tag, index) => (
@@ -198,26 +181,23 @@ export default function HomeScreen({ navigation }: any) {
                 </View>
               )}
 
-              {/* Rating */}
               {selectedPost.rating && (
                 <View style={styles.detailRatingContainer}>
                   <View style={styles.stars}>{renderStars(selectedPost.rating)}</View>
-                  <Text style={styles.detailRatingText}>{selectedPost.rating.toFixed(1)}</Text>
+                  <Text style={styles.detailRatingText}>{selectedPost.rating.toFixed(1)} / 5</Text>
                 </View>
               )}
 
-              {/* Description */}
-              <Text style={styles.synopsisTitle}>Description</Text>
+              <Text style={styles.synopsisTitle}>✦ Review</Text>
               <Text style={styles.synopsis}>{selectedPost.review}</Text>
             </View>
 
-            {/* My Activity Section */}
             {(() => {
               const userReview = getUserReviewForItem(selectedPost.itemId);
               if (!userReview) return null;
               return (
                 <View style={styles.myActivitySection}>
-                  <Text style={styles.myActivityTitle}>My Activity</Text>
+                  <Text style={styles.myActivityTitle}>🌸 My Notes</Text>
                   <View style={styles.myActivityContent}>
                     {userReview.reviewText && (
                       <Text style={styles.myActivityText}>{userReview.reviewText}</Text>
@@ -242,26 +222,19 @@ export default function HomeScreen({ navigation }: any) {
               );
             })()}
 
-            {/* Action Buttons */}
             <View style={styles.addToLibrarySection}>
-              <Text style={styles.addToLibraryTitle}>Add to Library</Text>
-              <TouchableOpacity
-                style={styles.addButton}
-                onPress={() => handleAddToLibrary('want')}>
-                <MaterialCommunityIcons name="heart-outline" size={18} color="#e98dca" />
+              <Text style={styles.addToLibraryTitle}>🍃 Add to Library</Text>
+              <TouchableOpacity style={styles.addButton} onPress={() => handleAddToLibrary('want')}>
+                <MaterialCommunityIcons name="heart-outline" size={18} color={ROSE} />
                 <Text style={styles.addButtonText}>Want to {selectedPost.type === 'book' ? 'Read' : 'Watch'}</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.addButton}
-                onPress={() => handleAddToLibrary('current')}>
-                <MaterialCommunityIcons name="book-open" size={18} color="#e98dca" />
-                <Text style={styles.addButtonText}>Currently {selectedPost.type === 'book' ? 'Reading' : 'Watching'}</Text>
+              <TouchableOpacity style={[styles.addButton, { borderColor: SAGE }]} onPress={() => handleAddToLibrary('current')}>
+                <MaterialCommunityIcons name="book-open" size={18} color={SAGE} />
+                <Text style={[styles.addButtonText, { color: SAGE }]}>Currently {selectedPost.type === 'book' ? 'Reading' : 'Watching'}</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.addButton}
-                onPress={() => handleAddToLibrary('finished')}>
-                <MaterialCommunityIcons name="check-circle" size={18} color="#e98dca" />
-                <Text style={styles.addButtonText}>Finished</Text>
+              <TouchableOpacity style={[styles.addButton, { borderColor: LAVENDER }]} onPress={() => handleAddToLibrary('finished')}>
+                <MaterialCommunityIcons name="check-circle" size={18} color={LAVENDER} />
+                <Text style={[styles.addButtonText, { color: LAVENDER }]}>Finished</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
@@ -272,9 +245,20 @@ export default function HomeScreen({ navigation }: any) {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
+      {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.appTitle}>MikaDiary</Text>
+        <View>
+          <Text style={styles.appTitle}>mika</Text>
+          <Text style={styles.appSubtitle}>your cozy media diary ✦</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.headerWriteBtn}
+          onPress={handleWriteReview}
+          activeOpacity={0.8}>
+          <MaterialCommunityIcons name="feather" size={16} color="#fff" />
+        </TouchableOpacity>
       </View>
+
       <FlatList
         data={allPosts}
         renderItem={({ item }) => <PostCard post={item} onCoverPress={handleCoverPress} />}
@@ -289,22 +273,21 @@ export default function HomeScreen({ navigation }: any) {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
-            tintColor="#e98dca"
-            title="Pull to refresh"
+            tintColor={ROSE}
+            title="refreshing diary..."
           />
         }
       />
 
-      {/* Write Review Button */}
+      {/* Write Review FAB */}
       <TouchableOpacity
         style={styles.writeReviewButton}
         onPress={handleWriteReview}
-        activeOpacity={0.8}>
-        <MaterialCommunityIcons name="pencil-plus" size={20} color="#fff" />
+        activeOpacity={0.85}>
+        <MaterialCommunityIcons name="feather" size={18} color="#fff" />
         <Text style={styles.writeReviewButtonText}>Write Review</Text>
       </TouchableOpacity>
 
-      {/* Write Review Modal */}
       <Modal
         visible={showWriteReview}
         animationType="slide"
@@ -321,7 +304,6 @@ export default function HomeScreen({ navigation }: any) {
         )}
       </Modal>
 
-      {/* Detail View Modal */}
       {renderDetailView()}
     </SafeAreaView>
   );
@@ -330,72 +312,101 @@ export default function HomeScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  feedContainer: {
-    paddingVertical: 8,
+    backgroundColor: CREAM,
   },
   header: {
-    paddingHorizontal: 16,
-    paddingVertical: 20,
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    backgroundColor: PARCHMENT,
+    borderBottomWidth: 1.5,
+    borderBottomColor: LINEN,
   },
   appTitle: {
     fontSize: 28,
     fontWeight: '800',
-    color: '#000',
+    color: BARK,
+    letterSpacing: 3,
+    fontStyle: 'italic',
+  },
+  appSubtitle: {
+    fontSize: 11,
+    color: MUSHROOM,
     letterSpacing: 0.5,
+    marginTop: 2,
+  },
+  headerWriteBtn: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: ROSE,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: ROSE,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 4,
+  },
+  feedContainer: {
+    paddingVertical: 12,
   },
   emptyState: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 32,
     alignItems: 'center',
   },
+  emptyStateEmoji: {
+    fontSize: 52,
+    marginBottom: 16,
+  },
   emptyStateTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '700',
-    color: '#000',
-    marginBottom: 12,
+    color: BARK,
+    marginBottom: 10,
   },
   emptyStateText: {
     fontSize: 14,
-    color: '#666',
+    color: MUSHROOM,
     textAlign: 'center',
-    lineHeight: 20,
+    lineHeight: 22,
   },
   writeReviewButton: {
     position: 'absolute',
-    bottom: 24,
-    right: 16,
+    bottom: 28,
+    right: 20,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    backgroundColor: '#e98dca',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    elevation: 5,
+    paddingVertical: 13,
+    paddingHorizontal: 18,
+    borderRadius: 30,
+    backgroundColor: ROSE,
+    shadowColor: ROSE,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    elevation: 6,
   },
   writeReviewButtonText: {
     fontSize: 14,
     fontWeight: '700',
     color: '#fff',
+    letterSpacing: 0.3,
   },
+  // ── Detail Modal ─────────────────────────────────────────────────────────
   detailContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: CREAM,
   },
   detailHeader: {
     paddingHorizontal: 16,
-    paddingVertical: 16,
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    paddingVertical: 14,
+    backgroundColor: PARCHMENT,
+    borderBottomWidth: 1.5,
+    borderBottomColor: LINEN,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -407,9 +418,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   detailHeaderTitle: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
-    color: '#000',
+    color: BARK,
     flex: 1,
     textAlign: 'center',
     marginHorizontal: 8,
@@ -420,30 +431,50 @@ const styles = StyleSheet.create({
   },
   coverImageContainer: {
     alignItems: 'center',
-    paddingVertical: 24,
+    paddingVertical: 28,
+    position: 'relative',
   },
   detailCoverImage: {
-    width: 150,
-    aspectRatio: 150 / 220,
-    borderRadius: 12,
-    backgroundColor: '#e0e0e0',
+    width: 140,
+    aspectRatio: 140 / 210,
+    borderRadius: 14,
+    backgroundColor: LINEN,
+    shadowColor: BARK,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 6,
+  },
+  coverRing: {
+    position: 'absolute',
+    width: 156,
+    height: 226,
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: ROSE_MIST,
+    top: 22,
   },
   detailInfo: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
+    backgroundColor: '#fffaf5',
+    borderRadius: 20,
+    padding: 18,
+    marginBottom: 14,
+    borderWidth: 1.5,
+    borderColor: LINEN,
   },
   detailTitle: {
     fontSize: 20,
     fontWeight: '800',
-    color: '#000',
+    color: BARK,
     marginBottom: 4,
   },
   detailAuthor: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: 13,
+    color: SAGE,
+    fontWeight: '600',
     marginBottom: 12,
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
   },
   detailTagsContainer: {
     flexDirection: 'row',
@@ -452,62 +483,60 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   detailTag: {
-    backgroundColor: '#f0e6f0',
+    backgroundColor: ROSE_MIST,
     paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 12,
+    borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#e98dca',
+    borderColor: BLUSH,
   },
   detailTagText: {
-    fontSize: 12,
-    color: '#c2516b',
-    fontWeight: '500',
+    fontSize: 11,
+    color: ROSE,
+    fontWeight: '600',
   },
   detailRatingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    marginBottom: 12,
+    marginBottom: 14,
   },
-  stars: {
-    flexDirection: 'row',
-    gap: 2,
-  },
+  stars: { flexDirection: 'row', gap: 2 },
   detailRatingText: {
     fontSize: 13,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: '700',
+    color: BARK,
   },
   synopsisTitle: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '700',
-    color: '#000',
+    color: MUSHROOM,
     marginBottom: 8,
+    letterSpacing: 0.5,
   },
   synopsis: {
-    fontSize: 13,
-    color: '#555',
-    lineHeight: 20,
+    fontSize: 14,
+    color: BARK,
+    lineHeight: 22,
   },
   myActivitySection: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
+    backgroundColor: LAV_MIST,
+    borderRadius: 20,
+    padding: 18,
+    marginBottom: 14,
+    borderWidth: 1.5,
+    borderColor: LAVENDER,
   },
   myActivityTitle: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
-    color: '#000',
+    color: BARK,
     marginBottom: 12,
   },
-  myActivityContent: {
-    gap: 12,
-  },
+  myActivityContent: { gap: 10 },
   myActivityText: {
     fontSize: 13,
-    color: '#555',
+    color: BARK,
     lineHeight: 20,
   },
   myActivityRating: {
@@ -515,14 +544,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
-  myActivityStars: {
-    flexDirection: 'row',
-    gap: 2,
-  },
+  myActivityStars: { flexDirection: 'row', gap: 2 },
   myActivityRatingText: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#333',
+    color: BARK,
   },
   myActivityTags: {
     flexDirection: 'row',
@@ -530,64 +556,47 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   myActivityTag: {
-    backgroundColor: '#f0e6f0',
+    backgroundColor: ROSE_MIST,
     paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 12,
+    borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#e98dca',
+    borderColor: BLUSH,
   },
   myActivityTagText: {
-    fontSize: 12,
-    color: '#c2516b',
-    fontWeight: '500',
+    fontSize: 11,
+    color: ROSE,
+    fontWeight: '600',
   },
   addToLibrarySection: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    marginTop: 16,
-    marginBottom: 24,
+    backgroundColor: MOSS,
+    borderRadius: 20,
+    padding: 18,
+    marginBottom: 36,
+    borderWidth: 1.5,
+    borderColor: SAGE,
   },
   addToLibraryTitle: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
-    color: '#000',
+    color: BARK,
     marginBottom: 12,
   },
   addButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 14,
-    backgroundColor: '#fff',
-    borderRadius: 10,
+    paddingVertical: 13,
+    paddingHorizontal: 16,
+    backgroundColor: CREAM,
+    borderRadius: 14,
     borderWidth: 1.5,
-    borderColor: '#e98dca',
+    borderColor: ROSE,
     marginBottom: 10,
     gap: 10,
   },
   addButtonText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#e98dca',
-  },
-  scrollContent: {
-    flexGrow: 1,
-  },
-  detailCoverContainer: {
-    alignItems: 'center',
-    paddingVertical: 20,
-  },
-  detailTitleSection: {
-    marginBottom: 16,
-  },
-  detailType: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#e98dca',
-    marginBottom: 8,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
+    color: ROSE,
   },
 });

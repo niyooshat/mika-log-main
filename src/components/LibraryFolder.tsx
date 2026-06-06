@@ -12,7 +12,7 @@ interface FolderProps {
 export const LibraryFolder: React.FC<FolderProps> = ({ label, icon, count, onPress }) => {
   return (
     <TouchableOpacity style={styles.folderContainer} onPress={onPress}>
-      <MaterialCommunityIcons name={icon as any} size={48} color="#e98dca" />
+      <MaterialCommunityIcons name={icon as any} size={46} color="#d4849b" />
       <Text style={styles.folderLabel}>{label}</Text>
       <Text style={styles.folderCount}>{count} items</Text>
     </TouchableOpacity>
@@ -23,28 +23,30 @@ const styles = StyleSheet.create({
   folderContainer: {
     flex: 1,
     margin: 8,
-    paddingVertical: 24,
+    paddingVertical: 22,
     paddingHorizontal: 16,
-    backgroundColor: '#fff',
-    borderRadius: 12,
+    backgroundColor: '#fffaf5',
+    borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    borderWidth: 1.5,
+    borderColor: '#e8ddd0',
+    shadowColor: '#6b5040',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
     elevation: 3,
   },
   folderLabel: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#000',
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#6b5040',
     marginTop: 8,
     textAlign: 'center',
   },
   folderCount: {
-    fontSize: 12,
-    color: '#999',
+    fontSize: 11,
+    color: '#9e8a78',
     marginTop: 4,
   },
 });

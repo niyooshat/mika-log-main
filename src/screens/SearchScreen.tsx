@@ -177,13 +177,13 @@ export default function SearchScreen() {
 
     for (let i = 0; i < fullStars; i++) {
       stars.push(
-        <MaterialCommunityIcons key={`full-${i}`} name="star" size={16} color="#FFD700" />
+        <MaterialCommunityIcons key={`full-${i}`} name="star" size={16} color="#d4849b" />
       );
     }
 
     if (hasHalfStar) {
       stars.push(
-        <MaterialCommunityIcons key="half" name="star-half-full" size={16} color="#FFD700" />
+        <MaterialCommunityIcons key="half" name="star-half-full" size={16} color="#d4849b" />
       );
     }
 
@@ -194,7 +194,7 @@ export default function SearchScreen() {
           key={`empty-${i}`}
           name="star-outline"
           size={16}
-          color="#999"
+          color="#9e8a78"
         />
       );
     }
@@ -265,7 +265,7 @@ export default function SearchScreen() {
               setSelectedItem(null);
             }}
             style={styles.backButton}>
-            <MaterialCommunityIcons name="chevron-left" size={24} color="#e98dca" />
+            <MaterialCommunityIcons name="chevron-left" size={24} color="#d4849b" />
           </TouchableOpacity>
           <Text style={styles.detailHeaderTitle}>{selectedItem.title}</Text>
           <View style={{ width: 24 }} />
@@ -311,21 +311,21 @@ export default function SearchScreen() {
             <TouchableOpacity
               style={styles.addButton}
               onPress={() => handleAddToLibrary('want')}>
-              <MaterialCommunityIcons name="heart-outline" size={18} color="#e98dca" />
+              <MaterialCommunityIcons name="heart-outline" size={18} color="#d4849b" />
               <Text style={styles.addButtonText}>{getAddButtonLabel('want')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.addButton}
               onPress={() => handleAddToLibrary('current')}>
-              <MaterialCommunityIcons name="book-open" size={18} color="#e98dca" />
+              <MaterialCommunityIcons name="book-open" size={18} color="#d4849b" />
               <Text style={styles.addButtonText}>{getAddButtonLabel('current')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.addButton}
               onPress={() => handleAddToLibrary('finished')}>
-              <MaterialCommunityIcons name="check-circle" size={18} color="#e98dca" />
+              <MaterialCommunityIcons name="check-circle" size={18} color="#d4849b" />
               <Text style={styles.addButtonText}>{getAddButtonLabel('finished')}</Text>
             </TouchableOpacity>
           </View>
@@ -350,7 +350,7 @@ export default function SearchScreen() {
                 {item.title}
               </Text>
               {item.rating && (
-                <Text style={styles.horizontalCardRating}>⭐ {item.rating.toFixed(1)}</Text>
+                <Text style={styles.horizontalCardRating}>â­ {item.rating.toFixed(1)}</Text>
               )}
             </TouchableOpacity>
           )}
@@ -390,17 +390,17 @@ export default function SearchScreen() {
 
         {/* Search Bar */}
         <View style={styles.searchContainer}>
-          <MaterialCommunityIcons name="magnify" size={20} color="#999" style={styles.searchIcon} />
+          <MaterialCommunityIcons name="magnify" size={20} color="#9e8a78" style={styles.searchIcon} />
           <TextInput
             style={styles.searchInput}
             placeholder={getCategoryPlaceholder(selectedCategory)}
-            placeholderTextColor="#ccc"
+            placeholderTextColor="#c8b4a8"
             value={searchQuery}
             onChangeText={handleSearch}
           />
           {searchQuery.length > 0 && (
             <TouchableOpacity onPress={() => handleSearch('')} style={styles.clearButton}>
-              <MaterialCommunityIcons name="close-circle" size={18} color="#999" />
+              <MaterialCommunityIcons name="close-circle" size={18} color="#9e8a78" />
             </TouchableOpacity>
           )}
         </View>
@@ -413,7 +413,7 @@ export default function SearchScreen() {
           {/* Loading Indicator */}
           {isLoading && (
             <View style={styles.loadingContainer}>
-              <ActivityIndicator size="large" color="#e98dca" />
+              <ActivityIndicator size="large" color="#d4849b" />
               <Text style={styles.loadingText}>Loading...</Text>
             </View>
           )}
@@ -490,27 +490,28 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fdf6ee',
   },
   header: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 18,
     paddingVertical: 16,
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    backgroundColor: '#f5ead8',
+    borderBottomWidth: 1.5,
+    borderBottomColor: '#e8ddd0',
   },
   title: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: '800',
-    color: '#000',
-    letterSpacing: 0.5,
+    color: '#6b5040',
+    letterSpacing: 2,
+    fontStyle: 'italic',
   },
   detailHeader: {
     paddingHorizontal: 16,
-    paddingVertical: 16,
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    paddingVertical: 14,
+    backgroundColor: '#f5ead8',
+    borderBottomWidth: 1.5,
+    borderBottomColor: '#e8ddd0',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -522,57 +523,57 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   detailHeaderTitle: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
-    color: '#000',
+    color: '#6b5040',
     flex: 1,
     textAlign: 'center',
     marginHorizontal: 8,
   },
   tabsContainer: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    backgroundColor: '#fffaf5',
+    borderBottomWidth: 1.5,
+    borderBottomColor: '#e8ddd0',
     paddingHorizontal: 16,
   },
   tab: {
     flex: 1,
     paddingVertical: 12,
     alignItems: 'center',
-    borderBottomWidth: 2,
+    borderBottomWidth: 2.5,
     borderBottomColor: 'transparent',
   },
   activeTab: {
-    borderBottomColor: '#e98dca',
+    borderBottomColor: '#d4849b',
   },
   tabText: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#999',
+    color: '#9e8a78',
   },
   activeTabText: {
-    color: '#e98dca',
+    color: '#d4849b',
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: 16,
     marginVertical: 12,
-    paddingHorizontal: 12,
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
+    paddingHorizontal: 14,
+    backgroundColor: '#fffaf5',
+    borderRadius: 16,
+    borderWidth: 1.5,
+    borderColor: '#e8ddd0',
   },
   searchIcon: {
     marginRight: 8,
   },
   searchInput: {
     flex: 1,
-    paddingVertical: 10,
+    paddingVertical: 11,
     fontSize: 14,
-    color: '#000',
+    color: '#6b5040',
   },
   clearButton: {
     padding: 4,
@@ -582,10 +583,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 40,
   },
   emptyStateText: {
     fontSize: 14,
-    color: '#999',
+    color: '#9e8a78',
     marginTop: 12,
   },
   loadingContainer: {
@@ -596,12 +598,12 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 12,
     fontSize: 14,
-    color: '#999',
+    color: '#9e8a78',
   },
   sectionLabel: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
-    color: '#000',
+    color: '#6b5040',
     paddingHorizontal: 16,
     paddingVertical: 12,
   },
@@ -617,27 +619,37 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
   },
   detailCoverImage: {
-    width: 150,
-    aspectRatio: 150 / 220,
-    borderRadius: 12,
-    backgroundColor: '#e0e0e0',
+    width: 140,
+    aspectRatio: 2 / 3,
+    borderRadius: 14,
+    backgroundColor: '#e8ddd0',
+    shadowColor: '#6b5040',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.18,
+    shadowRadius: 10,
+    elevation: 5,
   },
   detailInfo: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
+    backgroundColor: '#fffaf5',
+    borderRadius: 20,
+    padding: 18,
+    marginBottom: 14,
+    borderWidth: 1.5,
+    borderColor: '#e8ddd0',
   },
   detailTitle: {
     fontSize: 20,
     fontWeight: '800',
-    color: '#000',
+    color: '#6b5040',
     marginBottom: 4,
   },
   detailAuthor: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: 13,
+    color: '#9aaa8a',
+    fontWeight: '600',
     marginBottom: 12,
+    textTransform: 'uppercase',
+    letterSpacing: 0.8,
   },
   detailTagsContainer: {
     flexDirection: 'row',
@@ -646,17 +658,17 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   detailTag: {
-    backgroundColor: '#f0e6f0',
+    backgroundColor: '#f9e8ed',
     paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 12,
+    borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#e98dca',
+    borderColor: '#e8a0b0',
   },
   detailTagText: {
-    fontSize: 12,
-    color: '#c2516b',
-    fontWeight: '500',
+    fontSize: 11,
+    color: '#d4849b',
+    fontWeight: '600',
   },
   detailRatingContainer: {
     flexDirection: 'row',
@@ -670,91 +682,97 @@ const styles = StyleSheet.create({
   },
   detailRatingText: {
     fontSize: 13,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: '700',
+    color: '#6b5040',
   },
   synopsisTitle: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '700',
-    color: '#000',
+    color: '#9e8a78',
     marginBottom: 8,
+    letterSpacing: 0.5,
   },
   synopsis: {
-    fontSize: 13,
-    color: '#555',
-    lineHeight: 20,
+    fontSize: 14,
+    color: '#6b5040',
+    lineHeight: 22,
   },
   addToLibrarySection: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    marginTop: 16,
-    marginBottom: 24,
+    backgroundColor: '#dde8d5',
+    borderRadius: 20,
+    padding: 18,
+    marginTop: 14,
+    marginBottom: 36,
+    borderWidth: 1.5,
+    borderColor: '#9aaa8a',
   },
   addToLibraryTitle: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
-    color: '#000',
+    color: '#6b5040',
     marginBottom: 12,
   },
   addButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 14,
-    backgroundColor: '#fff',
-    borderRadius: 10,
+    paddingVertical: 13,
+    paddingHorizontal: 16,
+    backgroundColor: '#fdf6ee',
+    borderRadius: 14,
     borderWidth: 1.5,
-    borderColor: '#e98dca',
+    borderColor: '#d4849b',
     marginBottom: 10,
     gap: 10,
   },
   addButtonText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#e98dca',
+    color: '#d4849b',
   },
   contentScroll: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fdf6ee',
   },
   trendingSection: {
     marginTop: 12,
     marginBottom: 12,
   },
   genreLabel: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '700',
-    color: '#000',
+    color: '#6b5040',
     paddingHorizontal: 16,
     paddingBottom: 10,
+    textTransform: 'capitalize',
   },
   horizontalList: {
     paddingHorizontal: 16,
   },
   horizontalTrendingCard: {
     marginRight: 12,
-    width: 120,
+    width: 110,
     alignItems: 'center',
   },
   horizontalCardImage: {
-    width: 110,
-    aspectRatio: 150 / 220,
-    borderRadius: 8,
-    backgroundColor: '#e0e0e0',
+    width: 100,
+    aspectRatio: 2 / 3,
+    borderRadius: 12,
+    backgroundColor: '#e8ddd0',
     marginBottom: 8,
+    borderWidth: 1,
+    borderColor: '#e8ddd0',
   },
   horizontalCardTitle: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '600',
-    color: '#000',
+    color: '#6b5040',
     textAlign: 'center',
-    lineHeight: 16,
+    lineHeight: 15,
     marginBottom: 4,
   },
   horizontalCardRating: {
     fontSize: 11,
-    fontWeight: '600',
-    color: '#e98dca',
+    fontWeight: '700',
+    color: '#d4849b',
   },
 });

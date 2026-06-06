@@ -33,10 +33,10 @@ export const ReviewInteractions: React.FC<ReviewInteractionsProps> = ({
         activeOpacity={0.6}>
         <MaterialCommunityIcons
           name={isLiked ? 'heart' : 'heart-outline'}
-          size={18}
-          color={isLiked ? '#e98dca' : '#999'}
+          size={17}
+          color={isLiked ? '#d4849b' : '#b09a8a'}
         />
-        <Text style={[styles.interactionText, isLiked && { color: '#e98dca' }]}>
+        <Text style={[styles.interactionText, isLiked && { color: '#d4849b' }]}>
           {likes} {likes === 1 ? 'Like' : 'Likes'}
         </Text>
       </TouchableOpacity>
@@ -45,7 +45,7 @@ export const ReviewInteractions: React.FC<ReviewInteractionsProps> = ({
         style={styles.interactionButton}
         onPress={() => onOpenComments?.(reviewId)}
         activeOpacity={0.6}>
-        <MaterialCommunityIcons name="comment-outline" size={18} color="#999" />
+        <MaterialCommunityIcons name="comment-outline" size={17} color="#b09a8a" />
         <Text style={styles.interactionText}>Comment</Text>
       </TouchableOpacity>
 
@@ -53,33 +53,39 @@ export const ReviewInteractions: React.FC<ReviewInteractionsProps> = ({
         style={styles.interactionButton}
         onPress={() => alert('Share feature coming soon!')}
         activeOpacity={0.6}>
-        <MaterialCommunityIcons name="share-variant-outline" size={18} color="#999" />
+        <MaterialCommunityIcons name="share-variant-outline" size={17} color="#b09a8a" />
         <Text style={styles.interactionText}>Share</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
+const ROSE     = '#d4849b';
+const MUSHROOM = '#9e8a78';
+const LINEN    = '#e8ddd0';
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingTop: 10,
+    marginTop: 8,
     borderTopWidth: 1,
-    borderTopColor: '#f0f0f0',
-    gap: 12,
+    borderTopColor: LINEN,
+    gap: 8,
   },
   interactionButton: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 6,
-    paddingVertical: 8,
+    gap: 5,
+    paddingVertical: 7,
+    borderRadius: 12,
+    backgroundColor: 'rgba(232,221,208,0.4)',
   },
   interactionText: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '600',
-    color: '#999',
+    color: MUSHROOM,
   },
 });
