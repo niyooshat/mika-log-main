@@ -1,23 +1,23 @@
-import React, { useState, useRef } from 'react';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React, { useRef, useState } from 'react';
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  FlatList,
-  StyleSheet,
-  Image,
-  ScrollView,
-  ActivityIndicator,
+    ActivityIndicator,
+    FlatList,
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LibraryItemCard } from '../components/LibraryItemCard';
-import { LibraryItemType, LibraryItem, LibraryItemStatus } from '../types';
-import { useLibrary } from '../context/LibraryContext';
-import { searchBooks, searchMovies, searchShows, getTrendingMovies, getTrendingShows, getTrendingBooksByGenre } from '../services/apiService';
 import { API_CONFIG } from '../config/apiConfig';
+import { useLibrary } from '../context/LibraryContext';
 import { useSwipeGesture } from '../hooks/useSwipeGesture';
+import { getTrendingBooksByGenre, getTrendingMovies, getTrendingShows, searchBooks, searchMovies, searchShows } from '../services/apiService';
+import { LibraryItem, LibraryItemStatus, LibraryItemType } from '../types';
 
 type ViewMode = 'search' | 'detail';
 

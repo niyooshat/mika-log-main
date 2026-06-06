@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { Animated, View, Text, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React, { useEffect } from 'react';
+import { Animated, StyleSheet, Text, View } from 'react-native';
 
 interface ToastProps {
   visible: boolean;
